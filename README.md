@@ -1,14 +1,14 @@
-# Title
+# Vampire-Charact-rs
 
-A foobar to frobnicate the baz of bubbles!
+Character sheet management for Vampire: the Masquerade, written in Rust
 
-Note: Markdown *reference* links don't seem to work on Github README files, so always use the [default](https://example.org) format.
+<!-- Note: Markdown *reference* links don't seem to work on Github README files, so always use the [default](https://example.org) format. -->
 
 ## Getting Started
 
 ### Dependencies
 
-* 
+*
 
 ### Installing
 
