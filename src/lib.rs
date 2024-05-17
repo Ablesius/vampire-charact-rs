@@ -1,5 +1,6 @@
-use std::{path::{Path, PathBuf}, io, fs};
+use std::{path::{Path}, io, fs};
 use std::error::Error;
+use std::path::PathBuf;
 
 pub struct Config {
     pub dir_path: String,
@@ -22,7 +23,7 @@ impl Config {
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     // we start by just printing the json files found
-    let paths = json_paths(&config.dir_path)?;
+    let paths: Vec<PathBuf> = json_paths(&config.dir_path)?;
     println!("{:#?}", paths);
     Ok(())
 }
@@ -49,18 +50,23 @@ fn json_paths(dir: impl AsRef<Path>) -> io::Result<Vec<PathBuf>> {
         .collect()
 }
 
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
-//     #[test]
-//     fn sample_char_dir_three_results() {
-//         let dir = "tests/sample_character_dir";
-//         let expected_jsons = vec![
-//             std::path::PathBuf "tests/sample_character_dir/sample_char.json",
-//             "tests/sample_character_dir/sample_char_2.json",
-//             "tests/sample_character_dir/sample_char_3.json"
-//         ];
-//         let results = json_paths(&dir).expect("test dir should contain tests");
-//         assert_eq!(expected_jsons, results);
-//     }
-// }
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn sample_char_dir_three_results() {
+        let dir = "tests/sample_character_dir";
+        let expected_jsons = [
+            "tests/sample_character_dir/sample_char.json",
+            "tests/sample_character_dir/sample_char_2.json",
+            "tests/sample_character_dir/sample_char_3.json",
+        ]
+            .map(PathBuf::from);
+
+        let mut results = json_paths(&dir)
+            .expect("test dir should contain json files");
+        results.sort();
+
+        assert_eq!(results, expected_jsons);
+    }
+}
