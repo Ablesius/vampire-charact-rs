@@ -1,6 +1,6 @@
-use vampire_charact_rs::Config;
 use std::env;
 use std::process;
+use vampire_charact_rs::Config;
 
 /// Vampire-Charact-rs
 ///
