@@ -27,23 +27,6 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-
-// pub fn list_jsons(dir_path: impl AsRef<std::path::Path> ) -> Vec<PathBuf>{
-//     let mut v: Vec<PathBuf> = Vec::new();
-//     let dir = std::fs::read_dir(&dir_path).expect("dir path should be readable!");
-//     for entry in dir {
-//         let path_ref = std::path::Path::new(entry);
-//         let extension = path_ref
-//             .extension()
-//             .unwrap_or_else(|err| eprintln!("Error finding extension for file {}: {}", entry, err));
-//         if extension == "json" {
-//             v.push(path_ref.into());
-//         }
-//     }
-//     v
-// }
-
-
 /// Iterate over a directory and find json files
 /// that we use as character "sheets".
 fn json_paths(dir: impl AsRef<Path>) -> io::Result<Vec<PathBuf>> {
@@ -65,7 +48,6 @@ fn json_paths(dir: impl AsRef<Path>) -> io::Result<Vec<PathBuf>> {
         )
         .collect()
 }
-
 
 // #[cfg(test)]
 // mod tests {
