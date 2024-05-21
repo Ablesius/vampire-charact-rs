@@ -31,7 +31,7 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 
 /// Iterate over a directory and find json files
 /// that we use as character "sheets".
-fn json_paths(dir: impl AsRef<Path>) -> io::Result<Vec<PathBuf>> {
+pub fn json_paths(dir: impl AsRef<Path>) -> io::Result<Vec<PathBuf>> {
     // Code originally written by Carnagion#5942 @ Rust Prog Lang Community Discord.
     // Explanations by harudagondi#1480.
     // `fs::read_dir` return a result of `ReadDir`, which is an iterator of `Result<DirEntry, Error>`.
@@ -51,20 +51,5 @@ fn json_paths(dir: impl AsRef<Path>) -> io::Result<Vec<PathBuf>> {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    #[test]
-    fn sample_char_dir_three_results() {
-        let dir = "tests/sample_character_dir";
-        let expected_jsons = [
-            "tests/sample_character_dir/sample_char.json",
-            "tests/sample_character_dir/sample_char_2.json",
-            "tests/sample_character_dir/sample_char_3.json",
-        ]
-        .map(PathBuf::from);
-
-        let mut results = json_paths(&dir).expect("test dir should contain json files");
-        results.sort();
-
-        assert_eq!(results, expected_jsons);
-    }
+    // use super::*;
 }
