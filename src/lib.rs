@@ -5,7 +5,7 @@ use std::io::BufReader;
 use std::path::PathBuf;
 use std::{fs, io, path::Path};
 
-#[derive(PartialEq, Debug, Deserialize)]
+#[derive(PartialEq, Debug, Default, Deserialize)]
 pub struct Character {
     player_name: String,
     character_name: String,
@@ -48,9 +48,26 @@ impl Config {
 }
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
-    // we start by just printing the json files found
     let paths: Vec<PathBuf> = json_paths(config.dir_path)?;
-    println!("{:#?}", paths);
+    // next thing we wanna do: go through the files and return
+    // Characters from them.
+    let characters: Vec<Character> = paths
+        .iter()
+        .filter_map(|p| match character_from_file(p) {
+            Ok(c) => Some(c),
+            Err(e) => {
+                eprintln!("Error processing character sheet: {}", e);
+                None
+            }
+        })
+        .collect();
+    for c in &characters {
+        println!(
+            "Player: {}, Character: {}",
+            c.player_name(),
+            c.character_name()
+        );
+    }
     Ok(())
 }
 
