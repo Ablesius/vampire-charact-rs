@@ -1,8 +1,11 @@
+use serde::Deserialize;
 use std::error::Error;
+use std::fs::File;
+use std::io::BufReader;
 use std::path::PathBuf;
 use std::{fs, io, path::Path};
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Deserialize)]
 pub struct Character {
     player_name: String,
     character_name: String,
@@ -69,6 +72,16 @@ pub fn json_paths(dir: impl AsRef<Path>) -> io::Result<Vec<PathBuf>> {
         // going back, `entry.map` in this context turns a `Result<DirEntry, Error>` into `Result<Option<PathBuf>, Error>`. however, `filter_map` wants an `Option`. `transpose` just turns the result inside out so it becomes `Option<Result<PathBuf, Error>>`
         }).transpose())
         .collect()
+}
+
+/// Parse a json file and return a Result<Character, boxed Error>.
+pub fn character_from_file<P: AsRef<Path>>(path: P) -> Result<Character, Box<dyn Error>> {
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+
+    let character = serde_json::from_reader(reader)?;
+
+    Ok(character)
 }
 
 #[cfg(test)]
