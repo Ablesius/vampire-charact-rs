@@ -2,6 +2,28 @@ use std::error::Error;
 use std::path::PathBuf;
 use std::{fs, io, path::Path};
 
+#[derive(PartialEq, Debug)]
+pub struct Character {
+    player_name: String,
+    character_name: String,
+}
+
+impl Character {
+    pub fn new(player_name: String, character_name: String) -> Character {
+        Character {
+            player_name,
+            character_name,
+        }
+    }
+
+    pub fn player_name(&self) -> &String {
+        &self.player_name
+    }
+    pub fn character_name(&self) -> &String {
+        &self.character_name
+    }
+}
+
 pub struct Config {
     pub dir_path: String,
 }
@@ -51,5 +73,34 @@ pub fn json_paths(dir: impl AsRef<Path>) -> io::Result<Vec<PathBuf>> {
 
 #[cfg(test)]
 mod tests {
-    // use super::*;
+    use super::*;
+    #[test]
+    fn new_char() {
+        let test_char = Character::new(String::from("Test Player"), String::from("Test Character"));
+        assert_eq!(
+            test_char,
+            Character {
+                player_name: String::from("Test Player"),
+                character_name: String::from("Test Character"),
+            }
+        );
+    }
+
+    #[test]
+    fn char_name() {
+        // Test that the character_name method behaves as expected.
+        let test_char = Character::new(String::from("Test Player"), String::from("Test Character"));
+
+        let expected_char_name = String::from("Test Character");
+        assert_eq!(test_char.character_name, expected_char_name);
+    }
+
+    #[test]
+    fn player_name() {
+        // Test that the player_name method behaves as expected.
+        let test_char = Character::new(String::from("Test Player"), String::from("Test Character"));
+
+        let expected_player_name = String::from("Test Player");
+        assert_eq!(test_char.player_name, expected_player_name);
+    }
 }
