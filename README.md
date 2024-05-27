@@ -18,9 +18,12 @@ cargo build --release
 
 ### Executing program
 
+Your character sheets have to be json files. Run this:
 ```
-cargo run --release
+cargo run --release -- path/to/a/directory
 ```
+
+This will list out the available files. Note that your character sheets have to have the `.json` file ending, or vampire-charact-rs will not recognise them or consider them character sheets. You should also not have any other json files in this directory.
 
 ## Help
 
