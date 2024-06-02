@@ -1,9 +1,22 @@
+use clap::Parser;
 use serde::Deserialize;
 use std::error::Error;
 use std::fs::File;
 use std::io::BufReader;
 use std::path::PathBuf;
 use std::{fs, io, path::Path};
+
+// https://docs.rs/clap/4.0.18/clap/_derive/_tutorial/index.html#subcommands
+//
+
+/// Vampire-Charact-rs
+///
+/// A Vampire: The Masquerade Character Manager written in Rust.
+#[derive(Parser, Debug)]
+pub struct Cli {
+    /// The directory to scan for character sheet files
+    path: PathBuf,
+}
 
 #[derive(PartialEq, Debug, Default, Deserialize)]
 pub struct Character {
@@ -27,28 +40,8 @@ impl Character {
     }
 }
 
-pub struct Config {
-    pub dir_path: String,
-}
-
-impl Config {
-    pub fn build(args: &[String]) -> Result<Config, &'static str> {
-        if args.len() <= 1 {
-            return Err("Needs one more argument!");
-        } else if args.len() > 2 {
-            dbg!("{args}");
-            return Err("Only one argument allowed at this time!");
-        }
-
-        let file_path = args[1].clone();
-        Ok(Config {
-            dir_path: file_path,
-        })
-    }
-}
-
-pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
-    let paths: Vec<PathBuf> = json_paths(config.dir_path)?;
+pub fn run(cli: Cli) -> Result<(), Box<dyn Error>> {
+    let paths: Vec<PathBuf> = json_paths(cli.path)?;
     // next thing we wanna do: go through the files and return
     // Characters from them.
     let characters: Vec<Character> = paths

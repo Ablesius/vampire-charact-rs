@@ -1,23 +1,11 @@
-use std::env;
+use clap::Parser;
 use std::process;
-use vampire_charact_rs::Config;
+use vampire_charact_rs::{run, Cli};
 
-/// Vampire-Charact-rs
-///
-/// A Vampire: The Masquerade Character Manager written in Rust
-///
-/// Usage:
-/// `vampire-charact-rs FOLDER`
-/// will list characters that are found in that folder.
 fn main() {
-    let args: Vec<String> = env::args().collect();
+    let args = Cli::parse();
 
-    let config = Config::build(&args).unwrap_or_else(|err| {
-        println!("Problem parsing arguments: {err}");
-        process::exit(1);
-    });
-
-    if let Err(e) = vampire_charact_rs::run(config) {
+    if let Err(e) = run(args) {
         println!("Application error: {e}");
         process::exit(1);
     }
