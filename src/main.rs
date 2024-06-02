@@ -17,11 +17,11 @@ fn main() {
         }
         Commands::Print { path: _ } => {
             println!("not implemented yet!");
-            process::exit(0);
+            process::exit(2);
         }
         Commands::Add { path: _ } => {
             println!("not implemented yet!");
-            process::exit(0);
+            process::exit(2);
         }
     }
 }
