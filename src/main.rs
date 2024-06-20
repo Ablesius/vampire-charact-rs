@@ -1,6 +1,7 @@
 use clap::Parser;
 use std::process;
-use vampire_charact_rs::{list_characters, Cli, Commands};
+use vampire_charact_rs::character::list_characters;
+use vampire_charact_rs::{Cli, Commands};
 
 fn main() {
     let cli = Cli::parse();

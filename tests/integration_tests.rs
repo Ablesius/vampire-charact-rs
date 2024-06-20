@@ -27,15 +27,18 @@ fn no_results_in_dir() {
 
 #[test]
 fn new_char_from_sample_json() {
-    let expected_char = Character::new(String::from("Jason"), String::from("Phil Rubens"));
-    let char = character_from_file(PathBuf::from("tests/sample_character_dir/sample_char.json"))
-        .expect("sample_char.json should contain valid character json!");
+    let expected_char =
+        character::Character::new(String::from("Jason"), String::from("Phil Rubens"));
+    let char = character::character_from_file(PathBuf::from(
+        "tests/sample_character_dir/sample_char.json",
+    ))
+    .expect("sample_char.json should contain valid character json!");
     assert_eq!(char, expected_char)
 }
 
 #[test]
 #[should_panic]
 fn faulty_char_produces_error() {
-    character_from_file(PathBuf::from("tests/faulty_char_sheet/faulty_char.json"))
+    character::character_from_file(PathBuf::from("tests/faulty_char_sheet/faulty_char.json"))
         .expect("This character sheet does not contain all the required fields!");
 }
