@@ -1,4 +1,4 @@
-use clap::Parser;
+use clap::{Parser, Subcommand};
 use serde::Deserialize;
 use std::error::Error;
 use std::fs::File;
@@ -14,8 +14,19 @@ use std::{fs, io, path::Path};
 /// A Vampire: The Masquerade Character Manager written in Rust.
 #[derive(Parser, Debug)]
 pub struct Cli {
-    /// The directory to scan for character sheet files
-    path: PathBuf,
+    #[command(subcommand)]
+    pub command: Commands,
+}
+
+#[derive(Subcommand, Debug)]
+pub enum Commands {
+    /// List player and character name per file in the directory
+    List { path: Option<PathBuf> },
+    /// Print details of a character in a JSON file
+    Print { path: Option<PathBuf> },
+    /// Add character (noop)
+    // TODO: add functionality, then remove "noop"
+    Add { path: Option<PathBuf> },
 }
 
 #[derive(PartialEq, Debug, Default, Deserialize)]
@@ -24,24 +35,8 @@ pub struct Character {
     character_name: String,
 }
 
-impl Character {
-    pub fn new(player_name: String, character_name: String) -> Character {
-        Character {
-            player_name,
-            character_name,
-        }
-    }
-
-    pub fn player_name(&self) -> &String {
-        &self.player_name
-    }
-    pub fn character_name(&self) -> &String {
-        &self.character_name
-    }
-}
-
-pub fn run(cli: Cli) -> Result<(), Box<dyn Error>> {
-    let paths: Vec<PathBuf> = json_paths(cli.path)?;
+pub fn list_characters(path: PathBuf) -> Result<(), Box<dyn Error>> {
+    let paths: Vec<PathBuf> = json_paths(path)?;
     // next thing we wanna do: go through the files and return
     // Characters from them.
     let characters: Vec<Character> = paths
@@ -62,6 +57,22 @@ pub fn run(cli: Cli) -> Result<(), Box<dyn Error>> {
         );
     }
     Ok(())
+}
+
+impl Character {
+    pub fn new(player_name: String, character_name: String) -> Character {
+        Character {
+            player_name,
+            character_name,
+        }
+    }
+
+    pub fn player_name(&self) -> &String {
+        &self.player_name
+    }
+    pub fn character_name(&self) -> &String {
+        &self.character_name
+    }
 }
 
 /// Iterate over a directory and find json files
