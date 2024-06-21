@@ -1,4 +1,181 @@
 {
   "player_name": "Jason",
-  "character_name": "Phil Rubens"
+  "chronicle": "Something by Night",
+  "character_name": "Phil Rubens",
+  "clan": "Toreador",
+  "predator_type": "Siren",
+  "sect": "Camarilla",
+  "attributes": {
+    "physical": {
+      "strength": 1,
+      "dexterity": 3,
+      "stamina": 2
+    },
+    "social": {
+      "charisma": 4,
+      "manipulation": 3,
+      "composure": 2
+    },
+    "mental": {
+      "intelligence": 2,
+      "wits": 3,
+      "resolve": 3
+    }
+  },
+  "skills": {
+    "physical": {
+      "athletics": [
+        0,
+        ""
+      ],
+      "brawl": [
+        0,
+        ""
+      ],
+      "craft": [
+        3,
+        "plastic arts"
+      ],
+      "drive": [
+        0,
+        ""
+      ],
+      "firearms": [
+        0,
+        ""
+      ],
+      "larceny": [
+        0,
+        ""
+      ],
+      "melee": [
+        0,
+        ""
+      ],
+      "stealth": [
+        1,
+        ""
+      ],
+      "survival": [
+        0,
+        ""
+      ]
+    },
+    "social": {
+      "animal ken": [
+        0,
+        ""
+      ],
+      "etiquette": [
+        3,
+        ""
+      ],
+      "insight": [
+        2,
+        ""
+      ],
+      "intimidation": [
+        1,
+        ""
+      ],
+      "leadership": [
+        2,
+        ""
+      ],
+      "performance": [
+        2,
+        "public speaking"
+      ],
+      "persuasion": [
+        3,
+        "seduction"
+      ],
+      "streetwise": [
+        0,
+        ""
+      ],
+      "subterfuge": [
+        2,
+        ""
+      ]
+    },
+    "mental": {
+      "academics": [
+        2,
+        "art history"
+      ],
+      "awareness": [
+        1,
+        ""
+      ],
+      "finance": [
+        2,
+        "stock market"
+      ],
+      "investigation": [
+        0,
+        ""
+      ],
+      "medicine": [
+        0,
+        ""
+      ],
+      "occult": [
+        1,
+        ""
+      ],
+      "politics": [
+        1,
+        ""
+      ],
+      "science": [
+        0,
+        ""
+      ],
+      "technology": [
+        0,
+        ""
+      ]
+    }
+  },
+  "health": [
+    5,
+    0,
+    0
+  ],
+  "willpower": [
+    5,
+    0,
+    0
+  ],
+  "humanity": [
+    7,
+    1
+  ],
+  "hunger": 1,
+  "blood": {
+    "blood_potency": 1,
+    "generation": 13,
+    "blood_surge": "2d10",
+    "mend_amount": "1 superficial",
+    "rouse_reroll": 1,
+    "bane_severity": 2,
+    "feeding_penalty": ""
+  },
+  "clan_bane": "Aestetic Fixation. Dice penalty to Discipline rolls, when in a less than beautiful enviroment.",
+  "clan_compulsion": "Obsession. Until the end of scene or losing sight of the center of your attention, you suffer a 2 dice penalty.",
+  "disciplines": [
+    {"auspex": [
+      [1, "Sense the Unseen"]
+    ]},
+    {"celerity": [
+      [1, "Cat's Grace"]
+    ]},
+    {"presence": [
+      [1, "Awe"],
+      [2, "Daunt"],
+      [2, "Lingering Kiss"]
+    ]
+    }
+  ]
 }
