@@ -8,13 +8,15 @@ use std::path::Path;
 pub struct Character {
     player_name: String,
     character_name: String,
+    chronicle: String,
 }
 
 impl Character {
-    pub fn new(player_name: String, character_name: String) -> Character {
+    pub fn new(player_name: String, character_name: String, chronicle: String) -> Character {
         Character {
             player_name,
             character_name,
+            chronicle,
         }
     }
 
@@ -34,6 +36,16 @@ impl Character {
     pub fn character_name(&self) -> &String {
         &self.character_name
     }
+
+    pub fn chronicle(&self) -> &String {
+        &self.chronicle
+    }
+
+    pub fn print(&self) {
+        println!("Player: {}", self.player_name);
+        println!("Character: {}", self.character_name);
+        println!("Chronicle: {}", self.chronicle);
+    }
 }
 
 #[cfg(test)]
@@ -41,31 +53,54 @@ mod tests {
     use super::*;
     #[test]
     fn new_char() {
-        let test_char = Character::new(String::from("Test Player"), String::from("Test Character"));
+        let test_char = Character::new(
+            String::from("Test Player"),
+            String::from("Test Character"),
+            String::from("Test Chronicle by Night"),
+        );
         assert_eq!(
             test_char,
             Character {
                 player_name: String::from("Test Player"),
                 character_name: String::from("Test Character"),
+                chronicle: String::from("Test Chronicle by Night"),
             }
         );
     }
 
     #[test]
     fn char_name() {
-        // Test that the character_name method behaves as expected.
-        let test_char = Character::new(String::from("Test Player"), String::from("Test Character"));
+        let test_char = Character::new(
+            String::from("_"),
+            String::from("Test Character"),
+            String::from("_"),
+        );
 
-        let expected_char_name = String::from("Test Character");
-        assert_eq!(test_char.character_name, expected_char_name);
+        let expected = String::from("Test Character");
+        assert_eq!(test_char.character_name, expected);
     }
 
     #[test]
     fn player_name() {
-        // Test that the player_name method behaves as expected.
-        let test_char = Character::new(String::from("Test Player"), String::from("Test Character"));
+        let test_char = Character::new(
+            String::from("Test Player"),
+            String::from("_"),
+            String::from("_"),
+        );
 
-        let expected_player_name = String::from("Test Player");
-        assert_eq!(test_char.player_name, expected_player_name);
+        let expected = String::from("Test Player");
+        assert_eq!(test_char.player_name, expected);
+    }
+
+    #[test]
+    fn chronicle() {
+        let test_char = Character::new(
+            String::from("_"),
+            String::from("_"),
+            String::from("Test Chronicle"),
+        );
+
+        let expected = String::from("Test Chronicle");
+        assert_eq!(test_char.chronicle, expected);
     }
 }

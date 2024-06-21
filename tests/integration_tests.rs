@@ -28,10 +28,14 @@ fn no_results_in_dir() {
 
 #[test]
 fn new_char_from_sample_json() {
-    let expected_char = Character::new(String::from("Jason"), String::from("Phil Rubens"));
+    let expected = Character::new(
+        String::from("Jason"),
+        String::from("Phil Rubens"),
+        String::from("Something by Night"),
+    );
     let char = Character::from_file(PathBuf::from("tests/sample_character_dir/sample_char.json"))
         .expect("sample_char.json should contain valid character json!");
-    assert_eq!(char, expected_char)
+    assert_eq!(char, expected)
 }
 
 #[test]
