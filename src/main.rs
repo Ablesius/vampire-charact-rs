@@ -1,6 +1,6 @@
 use clap::Parser;
 use std::process;
-use vampire_charact_rs::character::list_characters;
+use vampire_charact_rs::read_dir;
 use vampire_charact_rs::{Cli, Commands};
 
 fn main() {
@@ -11,7 +11,7 @@ fn main() {
             let p = path.unwrap_or_else(|| {
                 std::env::current_dir().expect("should be able to access its own directory")
             });
-            if let Err(e) = list_characters(p) {
+            if let Err(e) = read_dir(p) {
                 println!("Application error: {e}");
                 process::exit(1);
             }

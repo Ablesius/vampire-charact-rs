@@ -1,38 +1,13 @@
-use crate::json_paths;
 use serde::Deserialize;
 use std::error::Error;
 use std::fs::File;
 use std::io::BufReader;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 #[derive(PartialEq, Debug, Default, Deserialize)]
 pub struct Character {
     player_name: String,
     character_name: String,
-}
-
-pub fn list_characters(path: PathBuf) -> Result<(), Box<dyn Error>> {
-    let paths: Vec<PathBuf> = json_paths(path)?;
-    // next thing we wanna do: go through the files and return
-    // Characters from them.
-    let characters: Vec<Character> = paths
-        .iter()
-        .filter_map(|p| match character_from_file(p) {
-            Ok(c) => Some(c),
-            Err(e) => {
-                eprintln!("Error processing character sheet: {}", e);
-                None
-            }
-        })
-        .collect();
-    for c in &characters {
-        println!(
-            "Player: {}, Character: {}",
-            c.player_name(),
-            c.character_name()
-        );
-    }
-    Ok(())
 }
 
 impl Character {
@@ -43,22 +18,22 @@ impl Character {
         }
     }
 
+    /// Parse a json file and return a Result<Character, boxed Error>.
+    pub fn from_file<P: AsRef<Path>>(path: P) -> Result<Character, Box<dyn Error>> {
+        let file = File::open(path)?;
+        let reader = BufReader::new(file);
+
+        let character = serde_json::from_reader(reader)?;
+
+        Ok(character)
+    }
+
     pub fn player_name(&self) -> &String {
         &self.player_name
     }
     pub fn character_name(&self) -> &String {
         &self.character_name
     }
-}
-
-/// Parse a json file and return a Result<Character, boxed Error>.
-pub fn character_from_file<P: AsRef<Path>>(path: P) -> Result<Character, Box<dyn Error>> {
-    let file = File::open(path)?;
-    let reader = BufReader::new(file);
-
-    let character = serde_json::from_reader(reader)?;
-
-    Ok(character)
 }
 
 #[cfg(test)]

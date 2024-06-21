@@ -1,6 +1,8 @@
 pub mod character;
 
+use crate::character::Character;
 use clap::{Parser, Subcommand};
+use std::error::Error;
 use std::path::PathBuf;
 use std::{fs, io, path::Path};
 
@@ -45,4 +47,29 @@ pub fn json_paths(dir: impl AsRef<Path>) -> io::Result<Vec<PathBuf>> {
         // going back, `entry.map` in this context turns a `Result<DirEntry, Error>` into `Result<Option<PathBuf>, Error>`. however, `filter_map` wants an `Option`. `transpose` just turns the result inside out so it becomes `Option<Result<PathBuf, Error>>`
         }).transpose())
         .collect()
+}
+
+/// Find character files in a directory.
+pub fn read_dir(path: PathBuf) -> Result<(), Box<dyn Error>> {
+    let paths: Vec<PathBuf> = json_paths(path)?;
+    // next thing we wanna do: go through the files and return
+    // Characters from them.
+    let characters: Vec<Character> = paths
+        .iter()
+        .filter_map(|p| match Character::from_file(p) {
+            Ok(c) => Some(c),
+            Err(e) => {
+                eprintln!("Error processing character sheet: {}", e);
+                None
+            }
+        })
+        .collect();
+    for c in &characters {
+        println!(
+            "Player: {}, Character: {}",
+            c.player_name(),
+            c.character_name()
+        );
+    }
+    Ok(())
 }
