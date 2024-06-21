@@ -49,8 +49,8 @@ pub fn json_paths(dir: impl AsRef<Path>) -> io::Result<Vec<PathBuf>> {
         .collect()
 }
 
-/// Find character files in a directory.
-pub fn read_dir(path: PathBuf) -> Result<(), Box<dyn Error>> {
+/// List character files found in a directory.
+pub fn list_characters(path: PathBuf) -> Result<(), Box<dyn Error>> {
     let paths: Vec<PathBuf> = json_paths(path)?;
     // next thing we wanna do: go through the files and return
     // Characters from them.
