@@ -6,11 +6,11 @@ Character sheet management for Vampire: the Masquerade, written in Rust
 
 ## Getting Started
 
-Your character sheets have to be json files.
 
-### Dependencies
+<!-- ### Dependencies
 
 *
+-->
 
 ### Installing
 
@@ -20,7 +20,8 @@ cargo build --release
 
 ### Executing program
 
-**Note** that your character sheets have to have the `.json` file ending, or vampire-charact-rs will not recognise them or consider them character sheets. You should also not have any other json files in this directory.
+Your character sheets have to be json files.
+**Note** that they also must have the `.json` file ending, or vampire-charact-rs will not recognise them or consider them character sheets. You should also not have any other json files in this directory.
 
 #### Modes
 
