@@ -20,7 +20,10 @@ cargo build --release
 
 ### Giving me feedback
 
-If you want to help out, I'd love if you open issues on GitHub, create Pull requests, or try the program and give me feedback in any way! If this is your first time working with code, check out [First Time Contributing to an Open Source Project?](docs/first-time-huh.md)
+If you want to help out, I'd love if you open issues on GitHub, create Pull requests, or try the program and give me feedback in any way! If this is your first time working with code, check out [First Time Contributing to an Open Source Project](docs/first-time-huh.md).
+
+
+At the time of writing, the app cannot yet _create_ character sheets for you (I'm working on that, see [branch `operating_modes/add`](https://github.com/Ablesius/vampire-charact-rs/tree/operating_modes/add)); so in order to create them, you'd best copy one of the sample characters from [tests/sample_character_dir](tests/sample_character_dir/).
 
 ## Executing program
 
