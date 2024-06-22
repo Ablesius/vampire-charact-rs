@@ -48,11 +48,11 @@ cargo run --release -- print path/to/character.json
 ```
 Prints all the character details noted in the file. For ease of use, it will currently just print the whole contents of the json file without any pretty formatting.
 
-##### Add character
+##### Create character interactively
 ```
-cargo run --release -- add [path/to/not/existing/character.json]
+cargo run --release -- create
 ```
-Enters an interactive mode where you can set up a character from scratch.
+Enters an interactive mode where you can create a character from scratch.
 
 ## Help
 
