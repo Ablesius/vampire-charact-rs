@@ -24,9 +24,8 @@ pub enum Commands {
     List { path: Option<PathBuf> },
     /// Print details of a character in a JSON file
     Print { path: Option<PathBuf> },
-    /// Add character (noop)
-    // TODO: add functionality, then remove "noop"
-    Add { path: Option<PathBuf> },
+    /// Interactively create a new character
+    Create {},
 }
 
 /// Iterate over a directory and find json files
@@ -94,5 +93,26 @@ pub fn print_character(path: PathBuf) -> Result<(), Box<dyn Error>> {
     println!("Player: {}", character.player_name());
     println!("Character: {}", character.character_name());
     println!("Chronicle: {}", character.chronicle());
+    Ok(())
+}
+
+pub fn create_character() -> Result<(), Box<dyn Error>> {
+    println!("Welcome to character creation!");
+    println!("What's your name (for display on the character sheet)?");
+    let mut input_player_name = String::new();
+    io::stdin().read_line(&mut input_player_name)?;
+
+    println!("Thanks!");
+    println!("What's your character's name? (You can provide a first and last name, or multiple names, or just a nickname. Whatever you like!)");
+    let mut input_char_name = String::new();
+    io::stdin().read_line(&mut input_char_name)?;
+
+    println!("Thanks!");
+    println!("What's the name of the chronicle?");
+    let mut input_chronicle = String::new();
+    io::stdin().read_line(&mut input_chronicle)?;
+
+    let character = Character::new(input_player_name, input_char_name, input_chronicle);
+    println!("{:#?}", character);
     Ok(())
 }
