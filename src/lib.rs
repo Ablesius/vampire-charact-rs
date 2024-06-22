@@ -103,7 +103,7 @@ pub fn create_character() -> Result<(), Box<dyn Error>> {
     io::stdin().read_line(&mut input_player_name)?;
 
     println!("Thanks!");
-    println!("What's your character's name? (You can provide a first and last name, or multiple names, or just a nickname. Whatever you like!");
+    println!("What's your character's name? (You can provide a first and last name, or multiple names, or just a nickname. Whatever you like!)");
     let mut input_char_name = String::new();
     io::stdin().read_line(&mut input_char_name)?;
 
