@@ -91,9 +91,7 @@ pub fn list_characters(path: PathBuf) -> Result<(), Box<dyn Error>> {
 /// The name of the player, of the character, and of the chronicle.
 pub fn print_character(path: PathBuf) -> Result<(), Box<dyn Error>> {
     let character = Character::from_file(path)?;
-    println!("Player: {}", character.player_name());
-    println!("Character: {}", character.character_name());
-    println!("Chronicle: {}", character.chronicle());
+    character.print();
     Ok(())
 }
 
@@ -124,10 +122,13 @@ pub fn create_character() -> Result<(), Box<dyn Error>> {
     )?;
 
     println!("Thanks!");
-
     let input_chronicle = read_user_input("What's the name of the chronicle?")?;
 
     let character = Character::new(input_player_name, input_char_name, input_chronicle);
     println!("{:#?}", character);
+
+    println!();
+    // let file_path = read_user_input("Where would you like to save your character? You may provide an absolute path or one relative to this directory");
+    //
     Ok(())
 }
