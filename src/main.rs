@@ -1,6 +1,6 @@
 use clap::Parser;
 use std::process;
-use vampire_charact_rs::{list_characters, print_character};
+use vampire_charact_rs::{create_character, list_characters, print_character};
 use vampire_charact_rs::{Cli, Commands};
 
 fn main() {
@@ -17,6 +17,7 @@ fn main() {
             }
         }
         Commands::Print { path } => {
+            // TODO: could be improved with `let else`? investigate
             if let Some(p) = path {
                 if let Err(e) = print_character(p) {
                     println!("Could not print character: {e}");
@@ -27,9 +28,11 @@ fn main() {
                 process::exit(1);
             }
         }
-        Commands::Add { path: _ } => {
-            println!("not implemented yet!");
-            process::exit(2);
+        Commands::Create {} => {
+            if let Err(e) = create_character() {
+                println!("Application error: {e}");
+                process::exit(1);
+            }
         }
     }
 }
