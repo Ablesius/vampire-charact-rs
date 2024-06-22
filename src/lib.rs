@@ -96,21 +96,28 @@ pub fn print_character(path: PathBuf) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
+fn read_user_input(instruction: &str) -> io::Result<String> {
+    println!("{}", &instruction);
+    let mut user_input = String::new();
+    io::stdin().read_line(&mut user_input)?;
+
+    Ok(user_input.trim().to_string())
+}
+
+/// Create a character by interactively providing the fields it requires.
 pub fn create_character() -> Result<(), Box<dyn Error>> {
     println!("Welcome to character creation!");
-    println!("What's your name (for display on the character sheet)?");
-    let mut input_player_name = String::new();
-    io::stdin().read_line(&mut input_player_name)?;
+    let input_player_name =
+        read_user_input("What's your name (for display on the character sheet)?")?;
 
     println!("Thanks!");
-    println!("What's your character's name? (You can provide a first and last name, or multiple names, or just a nickname. Whatever you like!)");
-    let mut input_char_name = String::new();
-    io::stdin().read_line(&mut input_char_name)?;
+    let input_char_name = read_user_input(
+        "What's your character's name? (You can provide a first and last name, or multiple names, or just a nickname. Whatever you like!)"
+    )?;
 
     println!("Thanks!");
-    println!("What's the name of the chronicle?");
-    let mut input_chronicle = String::new();
-    io::stdin().read_line(&mut input_chronicle)?;
+
+    let input_chronicle = read_user_input("What's the name of the chronicle?")?;
 
     let character = Character::new(input_player_name, input_char_name, input_chronicle);
     println!("{:#?}", character);
