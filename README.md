@@ -18,33 +18,38 @@ Character sheet management for Vampire: the Masquerade, written in Rust
 cargo build --release
 ```
 
-### Executing program
+### Giving me feedback
+
+If you want to help out, I'd love if you open issues on GitHub, create Pull requests, or try the program and give me feedback in any way! If this is your first time working with code, check out [First Time Contributing to an Open Source Project?](docs/first-time-huh.md)
+
+## Executing program
 
 Your character sheets have to be json files.
 **Note** that they also must have the `.json` file ending, or vampire-charact-rs will not recognise them or consider them character sheets. You should also not have any other json files in this directory.
 
-#### Modes
+### Modes
 
 The program has a couple of different operating modes, which perform different actions.
 At the moment, the mode has to be provided for the program to understand the command (later this might change so that the operating mode can be inferred from the passed parameters, but not now).
 
-##### List available characters
-    ```
-    cargo run --release -- list path/to/a/directory
-    ```
-    Lists out characters found in the directory by printing the player's and character's name for each character in the directory.
+#### List available characters
 
-##### Print character details
-   ```
-   cargo run --release -- print path/to/character.json
-   ```
-   Prints all the character details noted in the file. For ease of use, it will currently just print the whole contents of the json file without any pretty formatting.
+```
+cargo run --release -- list path/to/a/directory
+```
+Lists out characters found in the directory by printing the player's and character's name for each character in the directory.
+
+#### Print character details
+```
+cargo run --release -- print path/to/character.json
+```
+Prints all the character details noted in the file. For ease of use, it will currently just print the whole contents of the json file without any pretty formatting.
 
 ##### Add character
-   ```
-   cargo run --release -- add [path/to/not/existing/character.json]
-   ```
-   Enters an interactive mode where you can set up a character from scratch.
+```
+cargo run --release -- add [path/to/not/existing/character.json]
+```
+Enters an interactive mode where you can set up a character from scratch.
 
 ## Help
 
