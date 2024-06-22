@@ -3,6 +3,7 @@ pub mod character;
 use crate::character::Character;
 use clap::{Parser, Subcommand};
 use std::error::Error;
+use std::io::Write;
 use std::path::PathBuf;
 use std::{fs, io, path::Path};
 
@@ -96,12 +97,19 @@ pub fn print_character(path: PathBuf) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
+/// Prompt the user to input something and return it as io::Result<String>.
+/// This version in particular has both the prompt and the user's answer
+/// on the same line, which looks a bit nicer than
+/// ```pseudocode
+/// please input here:
+/// > place for the user to input
+/// ```
 fn read_user_input(instruction: &str) -> io::Result<String> {
-    println!("{}", &instruction);
-    let mut user_input = String::new();
-    io::stdin().read_line(&mut user_input)?;
-
-    Ok(user_input.trim().to_string())
+    print!("{instruction}: ");
+    io::stdout().flush()?;
+    let mut buff = String::new();
+    io::stdin().read_line(&mut buff)?;
+    Ok(buff.trim().to_owned())
 }
 
 /// Create a character by interactively providing the fields it requires.
