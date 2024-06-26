@@ -1,6 +1,7 @@
 pub mod character;
 
 use crate::character::Character;
+use anyhow::{Context, Result};
 use clap::{Parser, Subcommand};
 use std::error::Error;
 use std::io::Write;
@@ -111,7 +112,7 @@ fn read_user_input(instruction: &str) -> io::Result<String> {
 }
 
 /// Create a character by interactively providing the fields it requires.
-pub fn create_character() -> Result<(), Box<dyn Error>> {
+pub fn create_character() -> Result<()> {
     println!("Welcome to character creation!");
     let input_player_name =
         read_user_input("What's your name (for display on the character sheet)?")?;
@@ -128,7 +129,9 @@ pub fn create_character() -> Result<(), Box<dyn Error>> {
     println!("{:#?}", character);
 
     println!();
-    // let file_path = read_user_input("Where would you like to save your character? You may provide an absolute path or one relative to this directory");
-    //
+    let file_path = read_user_input("Where would you like to save your character? You may provide an absolute path or one relative to this directory")?;
+    character
+        .to_file(file_path)
+        .context("Could not write character to file")?;
     Ok(())
 }
