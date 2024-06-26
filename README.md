@@ -2,7 +2,7 @@
 
 Character sheet management for Vampire: the Masquerade, written in Rust
 
-<!-- Note: Markdown *reference* links don't seem to work on Github README files, so always use the [default](https://example.org) format. -->
+<!-- Note: Markdown *reference* links don't seem to work on GitHub README files, so always use the [default](https://example.org) format. -->
 
 ## Getting Started
 
@@ -30,7 +30,7 @@ At the time of writing, the app cannot yet _create_ character sheets for you (I'
 Your character sheets have to be json files.
 **Note** that they also must have the `.json` file ending, or vampire-charact-rs will not recognise them or consider them character sheets. You should also not have any other json files in this directory.
 
-**Note for beginners**: If you're annoyed by the cargo output "Finished `release` profile..." etc, you can disable it per run with the `-q` flag, or permanently. See `cargo help run` for information.
+**Note for beginners**: If you're annoyed by the cargo output "Finished `release` profile..." etc., you can disable it per run with the `-q` flag, or permanently. See `cargo help run` for information.
 
 ### Modes
 
