@@ -1,10 +1,10 @@
-use serde::Deserialize;
-use std::error::Error;
+use anyhow::Result;
+use serde::{Deserialize, Serialize};
 use std::fs::File;
-use std::io::BufReader;
+use std::io::{BufReader, BufWriter, Write};
 use std::path::Path;
 
-#[derive(PartialEq, Debug, Default, Deserialize)]
+#[derive(PartialEq, Debug, Default, Deserialize, Serialize)]
 pub struct Character {
     player_name: String,
     character_name: String,
@@ -20,14 +20,23 @@ impl Character {
         }
     }
 
-    /// Parse a json file and return a Result<Character, boxed Error>.
-    pub fn from_file<P: AsRef<Path>>(path: P) -> Result<Character, Box<dyn Error>> {
+    /// Parse a json file and return anyhow::Result<Character>.
+    pub fn from_file<P: AsRef<Path>>(path: P) -> Result<Character> {
         let file = File::open(path)?;
         let reader = BufReader::new(file);
 
         let character = serde_json::from_reader(reader)?;
 
         Ok(character)
+    }
+
+    /// Write a character to a json file.
+    pub fn to_file<P: AsRef<Path>>(&self, path: P) -> Result<()> {
+        let file = File::create(path)?;
+        let mut writer = BufWriter::new(file);
+        serde_json::to_writer(&mut writer, &self)?;
+        writer.flush()?;
+        Ok(())
     }
 
     pub fn player_name(&self) -> &String {
