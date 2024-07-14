@@ -20,7 +20,7 @@ impl Character {
         }
     }
 
-    /// Parse a json file and return anyhow::Result<Character>.
+    /// Parse a json file and return `anyhow::Result<Character>`.
     pub fn from_file<P: AsRef<Path>>(path: P) -> Result<Character> {
         let file = File::open(path)?;
         let reader = BufReader::new(file);
