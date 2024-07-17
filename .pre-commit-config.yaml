@@ -12,11 +12,13 @@ repos:
     hooks:
         -   id: fmt
         -   id: clippy
-#-   repo: local
-#    name: run tests
-#    hooks:
-#        - id: cargo-test
-#        - name: run tests
-#        - description: this hook runs all tests executed by `cargo test` with the default parameters
-#        - entry: cargo test
-#        - language: rust
+-   repo: local
+    hooks:
+        - id: test
+          name: cargo test
+          description: Run tests with cargo test.
+          entry: cargo test --
+          language: rust
+          types: [rust]
+          stages: [push]
+          args: []
