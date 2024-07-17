@@ -83,9 +83,10 @@ pub fn create_character() -> Result<()> {
     println!("Thanks!");
     println!("Now we need to distribute your attributes.");
     println!("Select one attribute to assign 4 dots to, by typing the whole name or just the highlighted letter:");
-    let highest = read_user_input(attribute_selection_prompt)?;
+    let highest_selection = read_user_input(attribute_selection_prompt)?;
 
-    println!("{highest} selected for 4 dots.");
+    let highest = highest_selection.parse::<character::Attribute>()?;
+    println!("{:?} selected for 4 dots.", highest);
 
     let character = Character::new(input_player_name, input_char_name, input_chronicle);
     println!("{:#?}", character);
