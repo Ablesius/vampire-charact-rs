@@ -88,7 +88,9 @@ pub fn create_character() -> Result<()> {
     let highest = highest_selection.parse::<character::Attribute>()?;
     println!("{:?} selected for 4 dots.", highest);
 
+    println!();
     let character = Character::new(input_player_name, input_char_name, input_chronicle);
+    // TODO: this block is just for debugging purposes, remove later
     println!("{:#?}", character);
 
     println!();
@@ -104,7 +106,7 @@ fn read_user_input(instruction: &str) -> io::Result<String> {
     print!("{instruction}: ");
     // This version in particular has both the prompt and the user's answer
     // on the same line, which looks a bit nicer than
-    // ```pseudocode
+    // ```
     // please input here:
     // > place for the user to input
     // ```
