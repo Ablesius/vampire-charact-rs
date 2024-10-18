@@ -1,5 +1,6 @@
 pub mod attributes;
 
+use crate::character::attributes::Attributes;
 use anyhow::Result;
 pub use attributes::Attribute;
 use serde::{Deserialize, Serialize};
@@ -12,6 +13,8 @@ pub struct Character {
     player_name: String,
     character_name: String,
     chronicle: String,
+
+    attributes: Attributes,
 }
 
 impl Character {
@@ -20,6 +23,7 @@ impl Character {
             player_name,
             character_name,
             chronicle,
+            attributes: Default::default(),
         }
     }
 
@@ -76,6 +80,7 @@ mod tests {
                 player_name: String::from("Test Player"),
                 character_name: String::from("Test Character"),
                 chronicle: String::from("Test Chronicle by Night"),
+                attributes: Attributes::default(),
             }
         );
     }
