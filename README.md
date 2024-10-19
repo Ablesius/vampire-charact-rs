@@ -6,7 +6,6 @@ Character sheet management for Vampire: the Masquerade, written in Rust
 
 ## Getting Started
 
-
 <!-- ### Dependencies
 
 *
@@ -55,6 +54,11 @@ Lists out characters found in the directory by printing the player's and charact
 ## Help
 
 <!-- Any advice for common problems or issues. -->
+
+## Contributing
+
+See [Contributing.md](docs/Contributing.md).
+
 
 ## Authors
 
