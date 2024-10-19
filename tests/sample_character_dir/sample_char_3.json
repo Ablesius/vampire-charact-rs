@@ -1,5 +1,16 @@
 {
   "player_name": "Jib",
   "character_name": "Mordred",
-  "chronicle": "Something by Night"
+  "chronicle": "Something by Night",
+  "attributes": {
+    "strength": 0,
+    "dexterity": 0,
+    "stamina": 0,
+    "charisma": 0,
+    "manipulation": 0,
+    "composure": 0,
+    "intelligence": 0,
+    "wits": 0,
+    "resolve": 0
+  }
 }

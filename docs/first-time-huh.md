@@ -25,3 +25,5 @@ And then, give feedback! 🗣️
 "doesn't work", "how do I do this, I don't understand", "this is cool, could you add..." is all welcome!
 
 If you want to, I will add your name to the list of [Acknowledgements](../README.md#acknowledgments)... or maybe to some Easter egg feature ☺️
+
+**Note for beginners**: If you're annoyed by the cargo output "Finished `release` profile..." etc., you can disable it per run with the `-q` flag, or permanently. See `cargo help run` for information.
