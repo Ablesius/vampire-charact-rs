@@ -38,7 +38,7 @@ pub fn list_characters(path: PathBuf) -> Result<(), Box<dyn Error>> {
         .filter_map(|p| match Character::from_file(p) {
             Ok(c) => Some(c),
             Err(e) => {
-                eprintln!("Error processing character sheet: {}", e);
+                eprintln!("Error processing character sheet {}: {}", p.display(), e);
                 None
             }
         })
