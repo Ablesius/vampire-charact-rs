@@ -1,4 +1,5 @@
 use std::path::PathBuf;
+use vampire_charact_rs::character::attributes::Attributes;
 use vampire_charact_rs::character::Character;
 use vampire_charact_rs::*;
 
@@ -28,10 +29,21 @@ fn no_results_in_dir() {
 
 #[test]
 fn new_char_from_sample_json() {
-    let expected = Character::new(
+    let expected = Character::new_with_attributes(
         String::from("Jason"),
         String::from("Phil Rubens"),
         String::from("Something by Night"),
+        Attributes {
+            strength: 1,
+            dexterity: 3,
+            stamina: 2,
+            charisma: 4,
+            manipulation: 3,
+            composure: 2,
+            intelligence: 2,
+            wits: 3,
+            resolve: 3,
+        },
     );
     let char = Character::from_file(PathBuf::from("tests/sample_character_dir/sample_char.json"))
         .expect("sample_char.json should contain valid character json!");
@@ -41,10 +53,21 @@ fn new_char_from_sample_json() {
 
 #[test]
 fn new_char_from_sample_2() {
-    let expected = Character::new(
+    let expected = Character::new_with_attributes(
         String::from("Mary"),
         String::from("Cassandra Skyloft"),
         String::from("Let the Streets Run Red"),
+        Attributes {
+            strength: 1,
+            dexterity: 3,
+            stamina: 2,
+            charisma: 4,
+            manipulation: 3,
+            composure: 2,
+            intelligence: 2,
+            wits: 3,
+            resolve: 2,
+        },
     );
     let char = Character::from_file(PathBuf::from(
         "tests/sample_character_dir/sample_char_2.json",
@@ -56,10 +79,21 @@ fn new_char_from_sample_2() {
 
 #[test]
 fn new_char_from_sample_3() {
-    let expected = Character::new(
+    let expected = Character::new_with_attributes(
         String::from("Jib"),
         String::from("Mordred"),
         String::from("Something by Night"),
+        Attributes {
+            strength: 0,
+            dexterity: 0,
+            stamina: 0,
+            charisma: 0,
+            manipulation: 0,
+            composure: 0,
+            intelligence: 0,
+            wits: 0,
+            resolve: 0,
+        },
     );
     let char = Character::from_file(PathBuf::from(
         "tests/sample_character_dir/sample_char_3.json",

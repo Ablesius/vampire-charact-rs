@@ -1,26 +1,40 @@
 use serde::{Deserialize, Serialize};
 use std::fmt;
 use std::fmt::Display;
-use std::ops::Index;
+use std::ops::{Index, IndexMut};
 use std::str::FromStr;
 
 /// Attributes that a character has.
 #[derive(Debug, Default, PartialEq, Serialize, Deserialize)]
 pub struct Attributes {
-    str: u8,
-    dex: u8,
-    sta: u8,
+    pub strength: u8,
+    pub dexterity: u8,
+    pub stamina: u8,
 
-    cha: u8,
-    man: u8,
-    com: u8,
+    pub charisma: u8,
+    pub manipulation: u8,
+    pub composure: u8,
 
-    int: u8,
-    wit: u8,
-    res: u8,
+    pub intelligence: u8,
+    pub wits: u8,
+    pub resolve: u8,
 }
 
-impl Attributes {}
+impl Attributes {
+    /// Set all attributes to 2 dots. We can use this with a mut instance
+    /// to then later change values individually.
+    pub fn set_all_to_2(&mut self) {
+        self.strength = 2;
+        self.dexterity = 2;
+        self.stamina = 2;
+        self.charisma = 2;
+        self.manipulation = 2;
+        self.composure = 2;
+        self.intelligence = 2;
+        self.wits = 2;
+        self.resolve = 2;
+    }
+}
 
 /// We can use this to do something like
 /// let attr: Attribute = Attribute::Stamina/* say you get this from user input ... */;
@@ -30,15 +44,15 @@ impl Index<Attribute> for Attributes {
 
     fn index(&self, attr: Attribute) -> &Self::Output {
         match attr {
-            Attribute::Strength => &self.str,
-            Attribute::Dexterity => &self.dex,
-            Attribute::Stamina => &self.sta,
-            Attribute::Charisma => &self.cha,
-            Attribute::Manipulation => &self.man,
-            Attribute::Composure => &self.com,
-            Attribute::Intelligence => &self.int,
-            Attribute::Wits => &self.wit,
-            Attribute::Resolve => &self.res,
+            Attribute::Strength => &self.strength,
+            Attribute::Dexterity => &self.dexterity,
+            Attribute::Stamina => &self.stamina,
+            Attribute::Charisma => &self.charisma,
+            Attribute::Manipulation => &self.manipulation,
+            Attribute::Composure => &self.composure,
+            Attribute::Intelligence => &self.intelligence,
+            Attribute::Wits => &self.wits,
+            Attribute::Resolve => &self.resolve,
         }
     }
 }
@@ -47,6 +61,22 @@ impl Index<Attribute> for Attributes {
 // fn is_attribute_at_least_threshold(&self, attribute: Attribute, threshold: u8) -> bool {
 //     self.attributes[attribute] >= threshold
 // }
+
+impl IndexMut<Attribute> for Attributes {
+    fn index_mut(&mut self, index: Attribute) -> &mut Self::Output {
+        match index {
+            Attribute::Strength => &mut self.strength,
+            Attribute::Dexterity => &mut self.dexterity,
+            Attribute::Stamina => &mut self.stamina,
+            Attribute::Charisma => &mut self.charisma,
+            Attribute::Manipulation => &mut self.manipulation,
+            Attribute::Composure => &mut self.composure,
+            Attribute::Intelligence => &mut self.intelligence,
+            Attribute::Wits => &mut self.wits,
+            Attribute::Resolve => &mut self.resolve,
+        }
+    }
+}
 
 #[derive(Debug, PartialEq)]
 pub enum Attribute {
@@ -107,3 +137,22 @@ impl Display for ParseAttributeError {
 }
 
 impl std::error::Error for ParseAttributeError {}
+
+#[test]
+fn set_all_to_two_works() {
+    let mut test_attributes: Attributes = Default::default();
+    let expected = Attributes {
+        strength: 2,
+        dexterity: 2,
+        stamina: 2,
+        charisma: 2,
+        manipulation: 2,
+        composure: 2,
+        intelligence: 2,
+        wits: 2,
+        resolve: 2,
+    };
+
+    test_attributes.set_all_to_2();
+    assert_eq!(test_attributes, expected);
+}

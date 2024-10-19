@@ -1,5 +1,6 @@
 pub mod character;
 
+use crate::character::attributes::Attributes;
 use crate::character::Character;
 use anyhow::{Context, Result};
 use clap::{Parser, Subcommand};
@@ -81,15 +82,51 @@ pub fn create_character() -> Result<()> {
     let input_chronicle = read_user_input("What's the name of the chronicle?")?;
 
     println!("Thanks!");
+
     println!("Now we need to distribute your attributes.");
+
     println!("Select one attribute to assign 4 dots to, by typing the whole name or just the highlighted letter:");
     let highest_selection = read_user_input(attribute_selection_prompt)?;
-
     let highest = highest_selection.parse::<character::Attribute>()?;
     println!("{:?} selected for 4 dots.", highest);
+    println!();
+
+    println!("Now select the attribute to only assign 1 dot to:");
+    let lowest_selection = read_user_input(attribute_selection_prompt)?;
+    let lowest = lowest_selection.parse::<character::Attribute>()?;
+    println!("{:?} selected for 1 dot.", lowest);
+    println!();
+
+    println!("Now select three attributes with 3 dots each.");
+    println!("First 3-dot attribute:");
+    let selection_3_dots_1 = read_user_input(attribute_selection_prompt)?;
+    let _3_dots_1 = selection_3_dots_1.parse::<character::Attribute>()?;
+    println!("{:?} selected for 3 dots.", _3_dots_1);
+    println!("Second 3-dot attribute:");
+    let selection_3_dots_2 = read_user_input(attribute_selection_prompt)?;
+    let _3_dots_2 = selection_3_dots_2.parse::<character::Attribute>()?;
+    println!("{:?} selected for 3 dots.", _3_dots_2);
+    println!("Third 3-dot attribute:");
+    let selection_3_dots_3 = read_user_input(attribute_selection_prompt)?;
+    let _3_dots_3 = selection_3_dots_3.parse::<character::Attribute>()?;
+    println!("{:?} selected for 3 dots.", _3_dots_3);
+
+    // map the highest, lowest, 3-dot and 2-dot attributes to the attribute enum
+    let mut attributes: Attributes = Default::default();
+    attributes.set_all_to_2();
+    attributes[highest] = 4;
+    attributes[lowest] = 1;
+    attributes[_3_dots_1] = 3;
+    attributes[_3_dots_2] = 3;
+    attributes[_3_dots_3] = 3;
 
     println!();
-    let character = Character::new(input_player_name, input_char_name, input_chronicle);
+    let character = Character::new_with_attributes(
+        input_player_name,
+        input_char_name,
+        input_chronicle,
+        attributes,
+    );
     // TODO: this block is just for debugging purposes, remove later
     println!("{:#?}", character);
 

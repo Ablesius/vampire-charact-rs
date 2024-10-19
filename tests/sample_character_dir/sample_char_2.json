@@ -1,5 +1,16 @@
 {
   "player_name": "Mary",
   "character_name": "Cassandra Skyloft",
-  "chronicle": "Let the Streets Run Red"
+  "chronicle": "Let the Streets Run Red",
+  "attributes": {
+    "strength": 1,
+    "dexterity": 3,
+    "stamina": 2,
+    "charisma": 4,
+    "manipulation": 3,
+    "composure": 2,
+    "intelligence": 2,
+    "wits": 3,
+    "resolve": 2
+  }
 }
