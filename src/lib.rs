@@ -86,29 +86,24 @@ pub fn create_character() -> Result<()> {
     println!("Now we need to distribute your attributes.");
 
     println!("Select one attribute to assign 4 dots to, by typing the whole name or just the highlighted letter:");
-    let highest_selection = read_user_input(attribute_selection_prompt)?;
-    let highest = highest_selection.parse::<character::Attribute>()?;
+    let highest = read_user_input(attribute_selection_prompt)?.parse::<character::Attribute>()?;
     println!("{:?} selected for 4 dots.", highest);
     println!();
 
     println!("Now select the attribute to only assign 1 dot to:");
-    let lowest_selection = read_user_input(attribute_selection_prompt)?;
-    let lowest = lowest_selection.parse::<character::Attribute>()?;
+    let lowest = read_user_input(attribute_selection_prompt)?.parse::<character::Attribute>()?;
     println!("{:?} selected for 1 dot.", lowest);
     println!();
 
     println!("Now select three attributes with 3 dots each.");
     println!("First 3-dot attribute:");
-    let selection_3_dots_1 = read_user_input(attribute_selection_prompt)?;
-    let _3_dots_1 = selection_3_dots_1.parse::<character::Attribute>()?;
+    let _3_dots_1 = read_user_input(attribute_selection_prompt)?.parse::<character::Attribute>()?;
     println!("{:?} selected for 3 dots.", _3_dots_1);
     println!("Second 3-dot attribute:");
-    let selection_3_dots_2 = read_user_input(attribute_selection_prompt)?;
-    let _3_dots_2 = selection_3_dots_2.parse::<character::Attribute>()?;
+    let _3_dots_2 = read_user_input(attribute_selection_prompt)?.parse::<character::Attribute>()?;
     println!("{:?} selected for 3 dots.", _3_dots_2);
     println!("Third 3-dot attribute:");
-    let selection_3_dots_3 = read_user_input(attribute_selection_prompt)?;
-    let _3_dots_3 = selection_3_dots_3.parse::<character::Attribute>()?;
+    let _3_dots_3 = read_user_input(attribute_selection_prompt)?.parse::<character::Attribute>()?;
     println!("{:?} selected for 3 dots.", _3_dots_3);
 
     // map the highest, lowest, 3-dot and 2-dot attributes to the attribute enum
@@ -164,23 +159,23 @@ pub fn json_paths(dir: impl AsRef<Path>) -> io::Result<Vec<PathBuf>> {
         // the filtering mechanism is done through returning an `Option`:
         // `Some` if you want to keep the value, `None` to discard it.
         .filter_map(|entry|
-        // `entry.map` here means it calls `Result::map`,
-        // which is essentially just turning `Result<T, E>` to `Result<U, E>`
-        // or in other words, mapping the success value to a different value
-        // (with possibly a different type)
-        entry.map(|entry| {
-            // inside the `map`, carnagion gets the path of the directory,
-            // then its extension, then returns a boolean whether or not the `extension()`
-            // returned a Some with a value of "json".
-            // `then_some` just turns a boolean into a `Some`
-            // with the value given if it is true, `None` otherwise
-            let path = entry.path();
-            let is_json = path.extension().is_some_and(|ext| ext == "json");
-            is_json.then_some(path)
-            // going back, `entry.map` in this context turns a `Result<DirEntry, Error>`
-            // into `Result<Option<PathBuf>, Error>`.
-            // however, `filter_map` wants an `Option`. `transpose` just turns the result
-            // inside out so it becomes `Option<Result<PathBuf, Error>>`
-        }).transpose())
+            // `entry.map` here means it calls `Result::map`,
+            // which is essentially just turning `Result<T, E>` to `Result<U, E>`
+            // or in other words, mapping the success value to a different value
+            // (with possibly a different type)
+            entry.map(|entry| {
+                // inside the `map`, carnagion gets the path of the directory,
+                // then its extension, then returns a boolean whether or not the `extension()`
+                // returned a Some with a value of "json".
+                // `then_some` just turns a boolean into a `Some`
+                // with the value given if it is true, `None` otherwise
+                let path = entry.path();
+                let is_json = path.extension().is_some_and(|ext| ext == "json");
+                is_json.then_some(path)
+                // going back, `entry.map` in this context turns a `Result<DirEntry, Error>`
+                // into `Result<Option<PathBuf>, Error>`.
+                // however, `filter_map` wants an `Option`. `transpose` just turns the result
+                // inside out so it becomes `Option<Result<PathBuf, Error>>`
+            }).transpose())
         .collect()
 }
