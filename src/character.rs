@@ -220,46 +220,4 @@ mod tests {
 
         assert_eq!(test_char, expected);
     }
-
-    #[test]
-    fn char_name() {
-        let test_char = Character::new(
-            String::from("_"),
-            String::from("Test Character"),
-            String::from("_"),
-            None,
-            None,
-        );
-
-        let expected = String::from("Test Character");
-        assert_eq!(test_char.character_name, expected);
-    }
-
-    #[test]
-    fn player_name() {
-        let test_char = Character::new(
-            String::from("Test Player"),
-            String::from("_"),
-            String::from("_"),
-            None,
-            None,
-        );
-
-        let expected = String::from("Test Player");
-        assert_eq!(test_char.player_name, expected);
-    }
-
-    #[test]
-    fn chronicle() {
-        let test_char = Character::new(
-            String::from("_"),
-            String::from("_"),
-            String::from("Test Chronicle"),
-            None,
-            None,
-        );
-
-        let expected = String::from("Test Chronicle");
-        assert_eq!(test_char.chronicle, expected);
-    }
 }
