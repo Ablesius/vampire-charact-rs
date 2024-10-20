@@ -12,9 +12,9 @@ use std::path::Path;
 
 #[derive(PartialEq, Debug, Default, Deserialize, Serialize)]
 pub struct Character {
-    player_name: String,
-    character_name: String,
-    chronicle: String,
+    pub player_name: String,
+    pub character_name: String,
+    pub chronicle: String,
 
     attributes: Attributes,
     skills: Skills,
@@ -65,17 +65,6 @@ impl Character {
         serde_json::to_writer(&mut writer, &self)?;
         writer.flush()?;
         Ok(())
-    }
-
-    pub fn player_name(&self) -> &String {
-        &self.player_name
-    }
-    pub fn character_name(&self) -> &String {
-        &self.character_name
-    }
-
-    pub fn chronicle(&self) -> &String {
-        &self.chronicle
     }
 
     pub fn print(&self) {

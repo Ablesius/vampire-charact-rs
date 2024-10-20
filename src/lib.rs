@@ -44,11 +44,7 @@ pub fn list_characters(path: PathBuf) -> Result<(), Box<dyn Error>> {
         })
         .collect();
     for c in &characters {
-        println!(
-            "Player: {}, Character: {}",
-            c.player_name(),
-            c.character_name()
-        );
+        println!("Player: {}, Character: {}", c.player_name, c.character_name,);
     }
     Ok(())
 }
