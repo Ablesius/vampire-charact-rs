@@ -44,11 +44,7 @@ pub fn list_characters(path: PathBuf) -> Result<(), Box<dyn Error>> {
         })
         .collect();
     for c in &characters {
-        println!(
-            "Player: {}, Character: {}",
-            c.player_name(),
-            c.character_name()
-        );
+        println!("Player: {}, Character: {}", c.player_name, c.character_name,);
     }
     Ok(())
 }
@@ -116,11 +112,12 @@ pub fn create_character() -> Result<()> {
     attributes[_3_dots_3] = 3;
 
     println!();
-    let character = Character::new_with_attributes(
+    let character = Character::new(
         input_player_name,
         input_char_name,
         input_chronicle,
-        attributes,
+        Some(attributes),
+        None,
     );
     // TODO: this block is just for debugging purposes, remove later
     println!("{:#?}", character);

@@ -19,11 +19,11 @@
   "skills": {
     "athletics": [
       0,
-      ""
+      null
     ],
     "brawl": [
       0,
-      ""
+      null
     ],
     "craft": [
       3,
@@ -31,50 +31,50 @@
     ],
     "drive": [
       0,
-      ""
+      null
     ],
     "firearms": [
       0,
-      ""
+      null
     ],
     "larceny": [
       0,
-      ""
+      null
     ],
     "melee": [
       0,
-      ""
+      null
     ],
     "stealth": [
       1,
-      ""
+      null
     ],
     "survival": [
       0,
-      ""
+      null
     ],
-    "animal ken": [
+    "animal_ken": [
       0,
-      ""
+      null
     ],
     "etiquette": [
       3,
-      ""
+      null
     ],
     "insight": [
       2,
-      ""
+      null
     ],
     "intimidation": [
       1,
-      ""
+      null
     ],
     "leadership": [
       2,
-      ""
+      null
     ],
     "performance": [
-      2,
+      3,
       "public speaking"
     ],
     "persuasion": [
@@ -83,11 +83,11 @@
     ],
     "streetwise": [
       0,
-      ""
+      null
     ],
     "subterfuge": [
       2,
-      ""
+      null
     ],
     "academics": [
       2,
@@ -95,7 +95,7 @@
     ],
     "awareness": [
       1,
-      ""
+      null
     ],
     "finance": [
       2,
@@ -103,36 +103,34 @@
     ],
     "investigation": [
       0,
-      ""
+      null
     ],
     "medicine": [
       0,
-      ""
+      null
     ],
     "occult": [
       1,
-      ""
+      null
     ],
     "politics": [
       1,
-      ""
+      null
     ],
     "science": [
       0,
-      ""
+      null
     ],
     "technology": [
       0,
-      ""
+      null
     ]
   },
   "health": [
-    5,
     0,
     0
   ],
   "willpower": [
-    5,
     0,
     0
   ],
@@ -150,7 +148,7 @@
   ],
   "rouse_reroll": 1,
   "bane_severity": 2,
-  "feeding_penalty": "",
+  "feeding_penalty": null,
   "clan_bane": "Aesthetic Fixation. Dice penalty to Discipline rolls, when in a less than beautiful environment.",
   "clan_compulsion": "Obsession. Until the end of scene or losing sight of the center of your attention, you suffer a 2 dice penalty.",
   "disciplines": [

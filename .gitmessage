@@ -22,6 +22,7 @@
 # The following is the list of supported scopes (subject to change):
 # core
 # character
+# JSON
 # list
 # create
 # print

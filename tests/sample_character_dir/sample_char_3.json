@@ -12,5 +12,115 @@
     "intelligence": 0,
     "wits": 0,
     "resolve": 0
+  },
+  "skills": {
+    "athletics": [
+      0,
+      null
+    ],
+    "brawl": [
+      0,
+      null
+    ],
+    "craft": [
+      0,
+      null
+    ],
+    "drive": [
+      0,
+      null
+    ],
+    "firearms": [
+      0,
+      null
+    ],
+    "larceny": [
+      0,
+      null
+    ],
+    "melee": [
+      0,
+      null
+    ],
+    "stealth": [
+      0,
+      null
+    ],
+    "survival": [
+      0,
+      null
+    ],
+    "animal_ken": [
+      0,
+      null
+    ],
+    "etiquette": [
+      0,
+      null
+    ],
+    "insight": [
+      0,
+      null
+    ],
+    "intimidation": [
+      0,
+      null
+    ],
+    "leadership": [
+      0,
+      null
+    ],
+    "performance": [
+      0,
+      null
+    ],
+    "persuasion": [
+      0,
+      null
+    ],
+    "streetwise": [
+      0,
+      null
+    ],
+    "subterfuge": [
+      0,
+      null
+    ],
+    "academics": [
+      0,
+      null
+    ],
+    "awareness": [
+      0,
+      null
+    ],
+    "finance": [
+      0,
+      null
+    ],
+    "investigation": [
+      0,
+      null
+    ],
+    "medicine": [
+      0,
+      null
+    ],
+    "occult": [
+      0,
+      null
+    ],
+    "politics": [
+      0,
+      null
+    ],
+    "science": [
+      0,
+      null
+    ],
+    "technology": [
+      0,
+      null
+    ]
   }
 }
