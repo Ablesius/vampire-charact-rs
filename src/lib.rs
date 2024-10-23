@@ -1,7 +1,7 @@
 pub mod character;
 
 use crate::character::attributes::Attributes;
-use crate::character::stats::Health;
+use crate::character::stats::{Health, Willpower};
 use crate::character::Character;
 use anyhow::{Context, Result};
 use clap::{Parser, Subcommand};
@@ -112,6 +112,7 @@ pub fn create_character() -> Result<()> {
     );
 
     println!();
+
     let character = Character::new(
         input_player_name,
         input_char_name,
@@ -125,6 +126,9 @@ pub fn create_character() -> Result<()> {
     // TODO: this block is just for debugging purposes, remove later
     println!("{:#?}", character);
     println!("The character's health: {:#?}", health);
+
+    let willpower = Willpower::from_character(&character);
+    println!("The character's willpower: {:#?}", willpower);
 
     println!();
     let file_path = read_user_input("Where would you like to save your character? You may provide an absolute path or one relative to this directory. Please provide a filename with the '.json' ending, e.g. './character.json' or '/some/other/path/my_characters_name.json'.")?;
