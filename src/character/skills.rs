@@ -156,16 +156,20 @@ impl Display for ParseSkillError {
 
 impl std::error::Error for ParseSkillError {}
 
-#[test]
-fn skill_from_string() {
-    let skill = "athletics".parse::<Skill>().unwrap();
-    let expected = Skill::Athletics;
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn skill_from_string() {
+        let skill = "athletics".parse::<Skill>().unwrap();
+        let expected = Skill::Athletics;
 
-    assert_eq!(skill, expected)
-}
+        assert_eq!(skill, expected)
+    }
 
-#[test]
-#[should_panic]
-fn non_existing_skill_from_string() {
-    let _ = "foo".parse::<Skill>().unwrap();
+    #[test]
+    #[should_panic]
+    fn non_existing_skill_from_string() {
+        let _ = "foo".parse::<Skill>().unwrap();
+    }
 }

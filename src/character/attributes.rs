@@ -156,21 +156,26 @@ impl Display for ParseAttributeError {
 
 impl std::error::Error for ParseAttributeError {}
 
-#[test]
-fn set_all_to_two_works() {
-    let mut test_attributes = Attributes::default();
-    let expected = Attributes {
-        strength: 2,
-        dexterity: 2,
-        stamina: 2,
-        charisma: 2,
-        manipulation: 2,
-        composure: 2,
-        intelligence: 2,
-        wits: 2,
-        resolve: 2,
-    };
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-    test_attributes.set_all_to_2();
-    assert_eq!(test_attributes, expected);
+    #[test]
+    fn set_all_to_two_works() {
+        let mut test_attributes = Attributes::default();
+        let expected = Attributes {
+            strength: 2,
+            dexterity: 2,
+            stamina: 2,
+            charisma: 2,
+            manipulation: 2,
+            composure: 2,
+            intelligence: 2,
+            wits: 2,
+            resolve: 2,
+        };
+
+        test_attributes.set_all_to_2();
+        assert_eq!(test_attributes, expected);
+    }
 }

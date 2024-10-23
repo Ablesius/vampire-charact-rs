@@ -64,35 +64,55 @@ impl Willpower {
     }
 }
 
-#[test]
-fn health_from_character() {
-    let char = Character::from_file(std::path::PathBuf::from(
-        "tests/sample_character_dir/sample_char.json",
-    ))
-    .expect("sample_char.json should contain valid character json!");
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-    let expected_health = Health::new(5);
+    #[test]
+    fn health_from_character() {
+        let char = Character::from_file(std::path::PathBuf::from(
+            "tests/sample_character_dir/sample_char.json",
+        ))
+        .expect("sample_char.json should contain valid character json!");
 
-    assert_eq!(Health::from_character(&char, None, None), expected_health)
-}
+        let expected_health = Health::new(5);
 
-#[test]
-fn health_calculated_correctly() {
-    use crate::character::attributes::Attributes;
-    let mut attributes = Attributes::default();
-    attributes[Attribute::Stamina] = 3;
+        assert_eq!(Health::from_character(&char, None, None), expected_health)
+    }
 
-    let char = Character::new(
-        String::from("Juke"),
-        String::from("Mx Anderson"),
-        String::from("Cthulhu by Night"),
-        Some(attributes),
-        None,
-    );
+    #[test]
+    fn health_calculated_correctly() {
+        use crate::character::attributes::Attributes;
+        let mut attributes = Attributes::default();
+        attributes[Attribute::Stamina] = 3;
 
-    let health = Health::from_character(&char, None, None);
-    // health should be Stamina + 3, so in this case 6
-    let expected = 6;
+        let char = Character::new(
+            String::from("Juke"),
+            String::from("Mx Anderson"),
+            String::from("Cthulhu by Night"),
+            Some(attributes),
+            None,
+        );
 
-    assert_eq!(health.value, expected);
+        let health = Health::from_character(&char, None, None);
+        // health should be Stamina + 3, so in this case 6
+        let expected = 6;
+
+        assert_eq!(health.value, expected);
+    }
+
+    #[test]
+    fn willpower_from_character() {
+        let char = Character::from_file(std::path::PathBuf::from(
+            "tests/sample_character_dir/sample_char.json",
+        ))
+        .expect("sample_char.json should contain valid character json!");
+
+        let expected_wp = Willpower {
+            value: 5,
+            damage: Damage::default(),
+        };
+
+        assert_eq!(Willpower::from_character(&char), expected_wp);
+    }
 }
