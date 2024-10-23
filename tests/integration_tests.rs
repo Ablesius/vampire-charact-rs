@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 use vampire_charact_rs::character::attributes::Attributes;
 use vampire_charact_rs::character::skills::Skills;
-use vampire_charact_rs::character::Character;
+use vampire_charact_rs::character::{Attribute, Character};
 use vampire_charact_rs::*;
 
 #[test]
@@ -159,3 +159,63 @@ fn faulty_char_produces_error() {
     Character::from_file(PathBuf::from("tests/faulty_char_sheet/faulty_char.json"))
         .expect("This character sheet does not contain all the required fields!");
 }
+
+#[test]
+fn new_char_to_file() {
+    let mut attributes = Attributes::default();
+    let highest = Attribute::Dexterity;
+    let lowest = Attribute::Resolve;
+    let three_mid = vec![
+        Attribute::Charisma,
+        Attribute::Intelligence,
+        Attribute::Manipulation,
+    ];
+
+    attributes.set_attributes_during_creation(highest, lowest, three_mid);
+
+    let skills = Skills {
+        athletics: (1, None),
+        brawl: (2, None),
+        craft: (3, Some(String::from("carpenter"))),
+        drive: (0, None),
+        firearms: (0, None),
+        larceny: (0, None),
+        melee: (1, None),
+        stealth: (0, None),
+        survival: (1, Some(String::from("foraging"))),
+        animal_ken: (2, None),
+        etiquette: (0, None),
+        insight: (1, None),
+        intimidation: (2, None),
+        leadership: (1, Some(String::from("practicality"))),
+        performance: (0, None),
+        persuasion: (1, None),
+        streetwise: (1, None),
+        subterfuge: (0, None),
+        academics: (0, None),
+        awareness: (3, None),
+        finance: (0, None),
+        investigation: (2, None),
+        medicine: (1, None),
+        occult: (0, None),
+        politics: (0, None),
+        science: (0, None),
+        technology: (0, None),
+    };
+
+    let char = Character::new(
+        String::from("Test player"),
+        String::from("Test character"),
+        String::from("Test chronicle"),
+        Some(attributes),
+        Some(skills),
+    );
+
+    char.to_file(PathBuf::from(
+        "tests/integration_test_characters/test_character.json",
+    ))
+    .expect("couldn't write to test output file!");
+}
+
+#[test]
+fn serialize_char_from_file() {}

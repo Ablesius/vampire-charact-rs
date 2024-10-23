@@ -34,6 +34,24 @@ impl Attributes {
         self.wits = 2;
         self.resolve = 2;
     }
+
+    /// Set attributes during character creation.
+    /// The rules require that there's one attribute at 4 dots, one at 1, three at 3, and the rest
+    /// at 2.
+    pub fn set_attributes_during_creation(
+        &mut self,
+        highest: Attribute,
+        lowest: Attribute,
+        three_threes: Vec<Attribute>,
+    ) {
+        self.set_all_to_2();
+        self[highest] = 4;
+        self[lowest] = 1;
+
+        for attr in three_threes {
+            self[attr] = 3;
+        }
+    }
 }
 
 /// We can use this to do something like
@@ -140,7 +158,7 @@ impl std::error::Error for ParseAttributeError {}
 
 #[test]
 fn set_all_to_two_works() {
-    let mut test_attributes: Attributes = Default::default();
+    let mut test_attributes = Attributes::default();
     let expected = Attributes {
         strength: 2,
         dexterity: 2,

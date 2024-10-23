@@ -1,6 +1,7 @@
 pub mod character;
 
 use crate::character::attributes::Attributes;
+use crate::character::stats::Health;
 use crate::character::Character;
 use anyhow::{Context, Result};
 use clap::{Parser, Subcommand};
@@ -103,13 +104,12 @@ pub fn create_character() -> Result<()> {
     println!("{:?} selected for 3 dots.", _3_dots_3);
 
     // map the highest, lowest, 3-dot and 2-dot attributes to the attribute enum
-    let mut attributes: Attributes = Default::default();
-    attributes.set_all_to_2();
-    attributes[highest] = 4;
-    attributes[lowest] = 1;
-    attributes[_3_dots_1] = 3;
-    attributes[_3_dots_2] = 3;
-    attributes[_3_dots_3] = 3;
+    let mut attributes = Attributes::default();
+    attributes.set_attributes_during_creation(
+        highest,
+        lowest,
+        vec![_3_dots_1, _3_dots_2, _3_dots_3],
+    );
 
     println!();
     let character = Character::new(
@@ -119,8 +119,12 @@ pub fn create_character() -> Result<()> {
         Some(attributes),
         None,
     );
+
+    // we'll see whether this is actually useful to do like this at some point
+    let health = Health::from_character(&character, None, None);
     // TODO: this block is just for debugging purposes, remove later
     println!("{:#?}", character);
+    println!("The character's health: {:#?}", health);
 
     println!();
     let file_path = read_user_input("Where would you like to save your character? You may provide an absolute path or one relative to this directory. Please provide a filename with the '.json' ending, e.g. './character.json' or '/some/other/path/my_characters_name.json'.")?;

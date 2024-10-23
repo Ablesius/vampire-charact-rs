@@ -1,6 +1,8 @@
 pub mod attributes;
 pub mod skills;
+pub mod stats;
 
+use crate::character::stats::Damage;
 use anyhow::Result;
 pub use attributes::Attribute;
 use attributes::Attributes;
@@ -18,6 +20,8 @@ pub struct Character {
 
     attributes: Attributes,
     skills: Skills,
+
+    damage: Damage,
 }
 
 impl Character {
@@ -25,6 +29,9 @@ impl Character {
     /// You can provide attributes and skills or leave them blank (by explicitly passing `None`);
     /// with `None`, the default values will be set (0 for attributes and (0, None) for skills;
     /// see `Skills`.
+    ///
+    /// **Note**: We assume that a new character does not have any damage;
+    /// that would have to be set later.
     pub fn new(
         player_name: String,
         character_name: String,
@@ -38,6 +45,7 @@ impl Character {
             chronicle,
             attributes: attributes.unwrap_or_default(),
             skills: skills.unwrap_or_default(),
+            damage: Damage::default(),
         }
     }
 
@@ -73,13 +81,18 @@ impl Character {
         println!("Chronicle: {}", self.chronicle);
         // TODO: print all the fields
     }
+
+    //TODO do we need this rather?
+    fn _get_max_health(&self) -> u8 {
+        &self.attributes[Attribute::Stamina] + 3
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     #[test]
-    fn attributes_and_skills_unset() {
+    fn new_character_all_default_values() {
         let test_char = Character::new(
             String::from("Test Player"),
             String::from("Test Character"),
@@ -95,7 +108,8 @@ mod tests {
                 character_name: String::from("Test Character"),
                 chronicle: String::from("Test Chronicle by Night"),
                 attributes: Attributes::default(),
-                skills: Default::default(),
+                skills: Skills::default(),
+                damage: Damage::default(),
             }
         );
     }
@@ -136,7 +150,8 @@ mod tests {
                 wits: 3,
                 resolve: 2,
             },
-            skills: Default::default(),
+            skills: Skills::default(),
+            damage: Damage::default(),
         };
 
         assert_eq!(test_char, expected);
@@ -186,7 +201,7 @@ mod tests {
             player_name: String::from(""),
             character_name: String::from(""),
             chronicle: String::from(""),
-            attributes: Default::default(),
+            attributes: Attributes::default(),
             skills: Skills {
                 athletics: (1, None),
                 brawl: (2, None),
@@ -216,6 +231,7 @@ mod tests {
                 science: (2, None),
                 technology: (3, None),
             },
+            damage: Damage::default(),
         };
 
         assert_eq!(test_char, expected);
