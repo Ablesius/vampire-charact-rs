@@ -1,22 +1,22 @@
 use crate::character::{Attribute, Character};
 use serde::{Deserialize, Serialize};
 
+// TODO make from_character a trait
+
 #[derive(Default, Debug, PartialEq)]
 pub struct Health {
     pub value: u8,
     pub damage: Damage,
 }
 
-/// Rather `Damage` than health since we will always be able to calculate max
-/// health at runtime. Superficial and aggravated damage, however, must be
-/// tracked on the sheet.
-#[derive(Serialize, Deserialize, Default, PartialEq, Debug)]
-pub struct Damage {
-    pub superficial: u8,
-    pub aggravated: u8,
-}
-
 impl Health {
+    pub fn new(value: u8) -> Self {
+        Self {
+            value,
+            damage: Damage::default(),
+        }
+    }
+
     /// Create a Health struct from a Character's values.
     /// Health in VtM is calculated as 3 + Stamina,
     /// so we only need to extract Stamina from the
@@ -38,10 +38,27 @@ impl Health {
     }
 }
 
-impl Health {
-    pub fn new(value: u8) -> Self {
+/// Rather `Damage` than health since we will always be able to calculate max
+/// health at runtime. Superficial and aggravated damage, however, must be
+/// tracked on the sheet.
+#[derive(Serialize, Deserialize, Default, PartialEq, Debug)]
+pub struct Damage {
+    pub superficial: u8,
+    pub aggravated: u8,
+}
+
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+pub struct Willpower {
+    pub value: u8,
+    pub damage: Damage,
+}
+
+impl Willpower {
+    /// Willpower is calculated from a character's Composure + Resolve values
+    pub fn from_character(character: &Character) -> Self {
         Self {
-            value,
+            value: character.attributes[Attribute::Composure]
+                + character.attributes[Attribute::Resolve],
             damage: Damage::default(),
         }
     }
