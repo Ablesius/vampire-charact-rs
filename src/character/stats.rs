@@ -65,6 +65,47 @@ impl Willpower {
     }
 }
 
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+pub struct Humanity {
+    pub value: u8,
+    pub stains: u8,
+}
+
+impl Default for Humanity {
+    /// We don't want humanity to default to 0, since that would mean our vampire has fallen to the Beast.
+    fn default() -> Self {
+        Self {
+            value: 7,
+            stains: 0,
+        }
+    }
+}
+
+impl Humanity {
+    /// The default is to start with humanity 7, but exceptions apply:
+    ///
+    /// 1. Ancillae: see [new_for_ancilla].
+    /// 2. by predator type or flaw: These can reduce humanity further. See the rulebooks for details.
+    pub fn new(&self) -> Self {
+        Self::default()
+    }
+
+    /// Ancillae start with their humanity reduced by one.
+    pub fn new_for_ancilla(&self) -> Self {
+        Self {
+            value: 6,
+            stains: 0,
+        }
+    }
+
+    pub fn from_character(character: &Character) -> Self {
+        Self {
+            value: character.humanity.value,
+            stains: character.humanity.stains,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

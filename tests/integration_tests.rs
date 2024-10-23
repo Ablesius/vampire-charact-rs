@@ -1,6 +1,7 @@
 use std::path::PathBuf;
 use vampire_charact_rs::character::attributes::Attributes;
 use vampire_charact_rs::character::skills::Skills;
+use vampire_charact_rs::character::stats::{Damage, Humanity};
 use vampire_charact_rs::character::{Attribute, Character};
 use vampire_charact_rs::*;
 
@@ -30,11 +31,11 @@ fn no_results_in_dir() {
 
 #[test]
 fn new_char_from_sample_json() {
-    let expected = Character::new(
-        String::from("Jason"),
-        String::from("Phil Rubens"),
-        String::from("Something by Night"),
-        Some(Attributes {
+    let expected = Character {
+        player_name: String::from("Jason"),
+        character_name: String::from("Phil Rubens"),
+        chronicle: String::from("Something by Night"),
+        attributes: Attributes {
             strength: 1,
             dexterity: 3,
             stamina: 2,
@@ -44,8 +45,8 @@ fn new_char_from_sample_json() {
             intelligence: 2,
             wits: 3,
             resolve: 3,
-        }),
-        Some(Skills {
+        },
+        skills: Skills {
             athletics: (0, None),
             brawl: (0, None),
             craft: (3, Some(String::from("plastic arts"))),
@@ -73,8 +74,15 @@ fn new_char_from_sample_json() {
             politics: (1, None),
             science: (0, None),
             technology: (0, None),
-        }),
-    );
+        },
+        damage: Damage::default(),
+        willpower_damage: Damage::default(),
+        humanity: Humanity {
+            value: 7,
+            stains: 1,
+        },
+    };
+
     let char = Character::from_file(PathBuf::from("tests/sample_character_dir/sample_char.json"))
         .expect("sample_char.json should contain valid character json!");
 
@@ -83,11 +91,11 @@ fn new_char_from_sample_json() {
 
 #[test]
 fn new_char_from_sample_2() {
-    let expected = Character::new(
-        String::from("Mary"),
-        String::from("Cassandra Skyloft"),
-        String::from("Let the Streets Run Red"),
-        Some(Attributes {
+    let expected = Character {
+        player_name: String::from("Mary"),
+        character_name: String::from("Cassandra Skyloft"),
+        chronicle: String::from("Let the Streets Run Red"),
+        attributes: Attributes {
             strength: 1,
             dexterity: 3,
             stamina: 2,
@@ -97,37 +105,13 @@ fn new_char_from_sample_2() {
             intelligence: 2,
             wits: 3,
             resolve: 2,
-        }),
-        Some(Skills {
-            athletics: (0, None),
-            brawl: (0, None),
-            craft: (0, None),
-            drive: (0, None),
-            firearms: (0, None),
-            larceny: (0, None),
-            melee: (0, None),
-            stealth: (0, None),
-            survival: (0, None),
-            animal_ken: (0, None),
-            etiquette: (0, None),
-            insight: (0, None),
-            intimidation: (0, None),
-            leadership: (0, None),
-            performance: (0, None),
-            persuasion: (0, None),
-            streetwise: (0, None),
-            subterfuge: (0, None),
-            academics: (0, None),
-            awareness: (0, None),
-            finance: (0, None),
-            investigation: (0, None),
-            medicine: (0, None),
-            occult: (0, None),
-            politics: (0, None),
-            science: (0, None),
-            technology: (0, None),
-        }),
-    );
+        },
+        skills: Skills::default(),
+        damage: Default::default(),
+        willpower_damage: Default::default(),
+        humanity: Default::default(),
+    };
+
     let char = Character::from_file(PathBuf::from(
         "tests/sample_character_dir/sample_char_2.json",
     ))
@@ -138,13 +122,29 @@ fn new_char_from_sample_2() {
 
 #[test]
 fn new_char_from_sample_3() {
-    let expected = Character::new(
-        String::from("Jib"),
-        String::from("Mordred"),
-        String::from("Something by Night"),
-        None,
-        None,
-    );
+    let expected = Character {
+        player_name: String::from("Jib"),
+        character_name: String::from("Mordred"),
+        chronicle: String::from("Something by Night"),
+
+        attributes: Attributes::default(),
+        skills: Skills::default(),
+
+        damage: Damage {
+            superficial: 3,
+            aggravated: 1,
+        },
+        willpower_damage: Damage {
+            superficial: 2,
+            aggravated: 0,
+        },
+
+        humanity: Humanity {
+            value: 7,
+            stains: 1,
+        },
+    };
+
     let char = Character::from_file(PathBuf::from(
         "tests/sample_character_dir/sample_char_3.json",
     ))

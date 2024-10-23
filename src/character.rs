@@ -2,7 +2,7 @@ pub mod attributes;
 pub mod skills;
 pub mod stats;
 
-use crate::character::stats::{Damage, Health, Willpower};
+use crate::character::stats::{Damage, Health, Humanity, Willpower};
 use anyhow::Result;
 pub use attributes::Attribute;
 use attributes::Attributes;
@@ -18,11 +18,12 @@ pub struct Character {
     pub character_name: String,
     pub chronicle: String,
 
-    attributes: Attributes,
-    skills: Skills,
+    pub attributes: Attributes,
+    pub skills: Skills,
 
-    damage: Damage,
-    willpower_damage: Damage,
+    pub damage: Damage,
+    pub willpower_damage: Damage,
+    pub humanity: Humanity,
 }
 
 impl Character {
@@ -48,6 +49,7 @@ impl Character {
             skills: skills.unwrap_or_default(),
             damage: Damage::default(),
             willpower_damage: Damage::default(),
+            humanity: Humanity::default(),
         }
     }
 
@@ -123,6 +125,7 @@ mod tests {
                 skills: Skills::default(),
                 damage: Damage::default(),
                 willpower_damage: Damage::default(),
+                humanity: Humanity::default(),
             }
         );
     }
@@ -166,6 +169,7 @@ mod tests {
             skills: Skills::default(),
             damage: Damage::default(),
             willpower_damage: Damage::default(),
+            humanity: Humanity::default(),
         };
 
         assert_eq!(test_char, expected);
@@ -247,6 +251,7 @@ mod tests {
             },
             damage: Damage::default(),
             willpower_damage: Damage::default(),
+            humanity: Humanity::default(),
         };
 
         assert_eq!(test_char, expected);
