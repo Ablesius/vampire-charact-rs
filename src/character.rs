@@ -94,7 +94,7 @@ impl Character {
         .value
     }
 
-    // same as above
+    // TODO same as above
     fn _get_max_wp(&self) -> u8 {
         Willpower::from_character(self).value
     }
