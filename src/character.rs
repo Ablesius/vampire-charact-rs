@@ -28,7 +28,7 @@ impl Character {
     /// Create a new Character.
     /// You can provide attributes and skills or leave them blank (by explicitly passing `None`);
     /// with `None`, the default values will be set (0 for attributes and (0, None) for skills;
-    /// see `Skills`.
+    /// see [Skills].
     ///
     /// **Note**: We assume that a new character does not have any damage;
     /// that would have to be set later.
