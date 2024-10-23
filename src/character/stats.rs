@@ -1,8 +1,6 @@
 use crate::character::{Attribute, Character};
 use serde::{Deserialize, Serialize};
 
-// TODO make from_character a trait
-
 #[derive(Default, Debug, PartialEq)]
 pub struct Health {
     pub value: u8,
