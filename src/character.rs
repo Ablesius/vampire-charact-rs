@@ -22,6 +22,7 @@ pub struct Character {
     skills: Skills,
 
     damage: Damage,
+    willpower_damage: Damage,
 }
 
 impl Character {
@@ -46,6 +47,7 @@ impl Character {
             attributes: attributes.unwrap_or_default(),
             skills: skills.unwrap_or_default(),
             damage: Damage::default(),
+            willpower_damage: Damage::default(),
         }
     }
 
@@ -110,6 +112,7 @@ mod tests {
                 attributes: Attributes::default(),
                 skills: Skills::default(),
                 damage: Damage::default(),
+                willpower_damage: Damage::default(),
             }
         );
     }
@@ -152,6 +155,7 @@ mod tests {
             },
             skills: Skills::default(),
             damage: Damage::default(),
+            willpower_damage: Damage::default(),
         };
 
         assert_eq!(test_char, expected);
@@ -232,6 +236,7 @@ mod tests {
                 technology: (3, None),
             },
             damage: Damage::default(),
+            willpower_damage: Damage::default(),
         };
 
         assert_eq!(test_char, expected);
