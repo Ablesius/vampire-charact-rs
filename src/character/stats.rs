@@ -15,10 +15,10 @@ impl Health {
         }
     }
 
-    /// Create a Health struct from a Character's values.
-    /// Health in VtM is calculated as 3 + Stamina,
+    /// Create a [Health] struct from a [Character]'s values.
+    /// Health in VtM is calculated as 3 + [Attribute::Stamina],
     /// so we only need to extract Stamina from the
-    /// Attributes field.
+    /// [Attributes] field.
     pub fn from_character(
         character: &Character,
         superficial: Option<u8>,
@@ -52,7 +52,7 @@ pub struct Willpower {
 }
 
 impl Willpower {
-    /// Willpower is calculated from a character's Composure + Resolve values
+    /// Willpower is calculated from a character's [Attribute::Composure] + [Attribute::Resolve]] values
     pub fn from_character(character: &Character) -> Self {
         Self {
             value: character.attributes[Attribute::Composure]
@@ -84,7 +84,7 @@ impl Default for Humanity {
 impl Humanity {
     /// The default is to start with humanity 7, but exceptions apply:
     ///
-    /// 1. Ancillae: see [new_for_ancilla].
+    /// 1. Ancillae: see [Humanity::new_for_ancilla].
     /// 2. by predator type or flaw: These can reduce humanity further. See the rulebooks for details.
     pub fn new(&self) -> Self {
         Self::default()
