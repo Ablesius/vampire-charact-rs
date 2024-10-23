@@ -58,7 +58,7 @@ impl Character {
     /// ```json
     /// "{\"name\":\"Foo\",\"brawl_skill\":[0,null]}"
     ///```
-    /// (In other words, `null` represents what is `Option::None` as serialized.
+    /// (In other words, `null` represents what is `Option::None` as serialized)
     pub fn from_file<P: AsRef<Path>>(path: P) -> Result<Character> {
         let file = File::open(path)?;
         let reader = BufReader::new(file);
