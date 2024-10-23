@@ -59,7 +59,10 @@ impl Willpower {
         Self {
             value: character.attributes[Attribute::Composure]
                 + character.attributes[Attribute::Resolve],
-            damage: Damage::default(),
+            damage: Damage {
+                superficial: character.willpower_damage.superficial,
+                aggravated: character.willpower_damage.aggravated,
+            },
         }
     }
 }

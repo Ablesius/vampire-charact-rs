@@ -2,7 +2,7 @@ pub mod attributes;
 pub mod skills;
 pub mod stats;
 
-use crate::character::stats::Damage;
+use crate::character::stats::{Damage, Health, Willpower};
 use anyhow::Result;
 pub use attributes::Attribute;
 use attributes::Attributes;
@@ -86,7 +86,17 @@ impl Character {
 
     //TODO do we need this rather?
     fn _get_max_health(&self) -> u8 {
-        &self.attributes[Attribute::Stamina] + 3
+        Health::from_character(
+            self,
+            Some(self.damage.superficial),
+            Some(self.damage.aggravated),
+        )
+        .value
+    }
+
+    // same as above
+    fn _get_max_wp(&self) -> u8 {
+        Willpower::from_character(self).value
     }
 }
 
