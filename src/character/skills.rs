@@ -35,40 +35,6 @@ pub struct Skills {
     pub technology: (u8, Option<String>),
 }
 
-// impl Default for Skills {
-//     fn default() -> Self {
-//         Self {
-//             athletics: (0, None),
-//             brawl: (0, None),
-//             craft: (0, None),
-//             drive: (0, None),
-//             firearms: (0, None),
-//             larceny: (0, None),
-//             melee: (0, None),
-//             stealth: (0, None),
-//             survival: (0, None),
-//             animal_ken: (0, None),
-//             etiquette: (0, None),
-//             insight: (0, None),
-//             intimidation: (0, None),
-//             leadership: (0, None),
-//             performance: (0, None),
-//             persuasion: (0, None),
-//             streetwise: (0, None),
-//             subterfuge: (0, None),
-//             academics: (0, None),
-//             awareness: (0, None),
-//             finance: (0, None),
-//             investigation: (0, None),
-//             medicine: (0, None),
-//             occult: (0, None),
-//             politics: (0, None),
-//             science: (0, None),
-//             technology: (0, None),
-//         }
-//     }
-// }
-
 /// We can use this to do something like
 /// let skill: Skill = Skill::Brawl/* say you get this from user input ... */;
 /// character.skills\[brawl] += 1;
@@ -190,16 +156,20 @@ impl Display for ParseSkillError {
 
 impl std::error::Error for ParseSkillError {}
 
-#[test]
-fn skill_from_string() {
-    let skill = "athletics".parse::<Skill>().unwrap();
-    let expected = Skill::Athletics;
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn skill_from_string() {
+        let skill = "athletics".parse::<Skill>().unwrap();
+        let expected = Skill::Athletics;
 
-    assert_eq!(skill, expected)
-}
+        assert_eq!(skill, expected)
+    }
 
-#[test]
-#[should_panic]
-fn non_existing_skill_from_string() {
-    let _ = "foo".parse::<Skill>().unwrap();
+    #[test]
+    #[should_panic]
+    fn non_existing_skill_from_string() {
+        let _ = "foo".parse::<Skill>().unwrap();
+    }
 }

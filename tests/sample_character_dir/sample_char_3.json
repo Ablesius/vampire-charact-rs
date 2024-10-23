@@ -122,5 +122,13 @@
       0,
       null
     ]
-  }
+  },
+  "damage": [
+    0,
+    0
+  ],
+  "willpower_damage": [
+    0,
+    0
+  ]
 }

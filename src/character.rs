@@ -1,6 +1,8 @@
 pub mod attributes;
 pub mod skills;
+pub mod stats;
 
+use crate::character::stats::{Damage, Health, Willpower};
 use anyhow::Result;
 pub use attributes::Attribute;
 use attributes::Attributes;
@@ -18,13 +20,19 @@ pub struct Character {
 
     attributes: Attributes,
     skills: Skills,
+
+    damage: Damage,
+    willpower_damage: Damage,
 }
 
 impl Character {
     /// Create a new Character.
     /// You can provide attributes and skills or leave them blank (by explicitly passing `None`);
     /// with `None`, the default values will be set (0 for attributes and (0, None) for skills;
-    /// see `Skills`.
+    /// see [Skills].
+    ///
+    /// **Note**: We assume that a new character does not have any damage;
+    /// that would have to be set later.
     pub fn new(
         player_name: String,
         character_name: String,
@@ -38,6 +46,8 @@ impl Character {
             chronicle,
             attributes: attributes.unwrap_or_default(),
             skills: skills.unwrap_or_default(),
+            damage: Damage::default(),
+            willpower_damage: Damage::default(),
         }
     }
 
@@ -48,7 +58,7 @@ impl Character {
     /// ```json
     /// "{\"name\":\"Foo\",\"brawl_skill\":[0,null]}"
     ///```
-    /// (In other words, `null` represents what is `Option::None` as serialized.
+    /// (In other words, `null` represents what is `Option::None` as serialized)
     pub fn from_file<P: AsRef<Path>>(path: P) -> Result<Character> {
         let file = File::open(path)?;
         let reader = BufReader::new(file);
@@ -73,13 +83,28 @@ impl Character {
         println!("Chronicle: {}", self.chronicle);
         // TODO: print all the fields
     }
+
+    //TODO do we need this rather?
+    fn _get_max_health(&self) -> u8 {
+        Health::from_character(
+            self,
+            Some(self.damage.superficial),
+            Some(self.damage.aggravated),
+        )
+        .value
+    }
+
+    // TODO same as above
+    fn _get_max_wp(&self) -> u8 {
+        Willpower::from_character(self).value
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     #[test]
-    fn attributes_and_skills_unset() {
+    fn new_character_all_default_values() {
         let test_char = Character::new(
             String::from("Test Player"),
             String::from("Test Character"),
@@ -95,7 +120,9 @@ mod tests {
                 character_name: String::from("Test Character"),
                 chronicle: String::from("Test Chronicle by Night"),
                 attributes: Attributes::default(),
-                skills: Default::default(),
+                skills: Skills::default(),
+                damage: Damage::default(),
+                willpower_damage: Damage::default(),
             }
         );
     }
@@ -136,7 +163,9 @@ mod tests {
                 wits: 3,
                 resolve: 2,
             },
-            skills: Default::default(),
+            skills: Skills::default(),
+            damage: Damage::default(),
+            willpower_damage: Damage::default(),
         };
 
         assert_eq!(test_char, expected);
@@ -186,7 +215,7 @@ mod tests {
             player_name: String::from(""),
             character_name: String::from(""),
             chronicle: String::from(""),
-            attributes: Default::default(),
+            attributes: Attributes::default(),
             skills: Skills {
                 athletics: (1, None),
                 brawl: (2, None),
@@ -216,6 +245,8 @@ mod tests {
                 science: (2, None),
                 technology: (3, None),
             },
+            damage: Damage::default(),
+            willpower_damage: Damage::default(),
         };
 
         assert_eq!(test_char, expected);
