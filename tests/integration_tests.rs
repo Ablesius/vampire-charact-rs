@@ -216,6 +216,3 @@ fn new_char_to_file() {
     ))
     .expect("couldn't write to test output file!");
 }
-
-#[test]
-fn serialize_char_from_file() {}
