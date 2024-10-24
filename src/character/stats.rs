@@ -157,4 +157,43 @@ mod tests {
 
         assert_eq!(Willpower::from_character(&char), expected_wp);
     }
+
+    #[test]
+    fn humanity_7_for_neonates() {
+        let char = Character::from_file(std::path::PathBuf::from(
+            "tests/sample_character_dir/sample_char.json",
+        ))
+        .expect("sample_char.json should contain valid character json!");
+
+        let expected_humanity = Humanity {
+            value: 7,
+            stains: 1,
+        };
+
+        assert_eq!(Humanity::from_character(&char), expected_humanity);
+    }
+
+    #[test]
+    fn humanity_6_for_ancillae() {
+        let char = Character {
+            player_name: "".to_string(),
+            character_name: "".to_string(),
+            chronicle: "".to_string(),
+            attributes: Default::default(),
+            skills: Default::default(),
+            damage: Default::default(),
+            willpower_damage: Default::default(),
+            humanity: Humanity {
+                value: 6,
+                stains: 0,
+            },
+        };
+
+        let expected_humanity = Humanity {
+            value: 6,
+            stains: 0,
+        };
+
+        assert_eq!(Humanity::from_character(&char), expected_humanity);
+    }
 }
