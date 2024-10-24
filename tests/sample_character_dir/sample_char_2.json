@@ -123,12 +123,16 @@
       null
     ]
   },
-  "damage": [
-    0,
-    0
-  ],
-  "willpower_damage": [
-    0,
-    0
-  ]
+  "damage": {
+    "superficial": 0,
+    "aggravated": 0
+  },
+  "willpower_damage": {
+    "superficial": 0,
+    "aggravated": 0
+  },
+  "humanity": {
+    "value": 7,
+    "stains": 0
+  }
 }
