@@ -1,4 +1,5 @@
 pub mod attributes;
+pub mod blood;
 pub mod skills;
 pub mod stats;
 
