@@ -1,6 +1,7 @@
 pub mod character;
 
 use crate::character::attributes::Attributes;
+use crate::character::blood::BloodPotency;
 use crate::character::stats::{Health, Willpower};
 use crate::character::Character;
 use anyhow::{Context, Result};
@@ -112,13 +113,44 @@ pub fn create_character() -> Result<()> {
 
     println!();
 
+    // TODO: choose skill distribution and then consequently skills
+
+    //TODO implement sea of time later if we even need it at all
+    /*
+        {
+            let sea_of_time_choice = read_user_input(r#"Please choose whether you'll be playing as a
+
+    1. "childe": Embraced within the last 15 years, 14th generation or higher (thin-bloods), blood potency 0;\
+    2. "neonate": embraced between 1940 and about a decade ago, 12th or 13th generation, blood potency 1, 15 free XP;
+    3. "ancilla": embraced between 1780 and 1940, 10th or 11th generation, blood potency 2, additional 2 points of Advantages, 2 of Flaws, -1 to Humanity, 35 free XP
+
+    Please type one of the quoted terms:
+    "#
+            )?;
+
+            match sea_of_time_choice {
+                "childe" => todo!(),
+                "neonate" => todo!(),
+                "ancilla" => todo!(),
+                _ => format_err!("You did not pick one of the allowed choices!")
+            };
+        }
+    */
+
+    //TODO refactor both generation parsing and blood potency from generation to own functions
+    let generation: u8 = read_user_input("Input the generation you would like to set for your character. Remember that *higher* generation number means weaker!")?
+        .parse()
+        .expect("couldn't read generation, did you input a number or text?");
+
+    let blood_potency = BloodPotency::from_generation(&generation);
+
     let character = Character::new(
         input_player_name,
         input_char_name,
         input_chronicle,
         Some(attributes),
         None,
-        None,
+        Some(blood_potency),
     );
 
     // we'll see whether this is actually useful to do like this at some point

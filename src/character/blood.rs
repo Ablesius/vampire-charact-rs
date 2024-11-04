@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use std::cmp::Ordering;
 
 #[derive(PartialEq, PartialOrd, Debug)]
 pub struct Hunger(u8);
@@ -58,6 +59,26 @@ impl From<u8> for BloodPotency {
     }
 }
 
+impl PartialOrd for BloodPotency {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        self.0.cmp(&other.0).into()
+    }
+}
+
+impl BloodPotency {
+    //TODO refactor so that it's used
+    pub(crate) fn from_generation(generation: &u8) -> Self {
+        match generation {
+            10..=11 => 2,
+            12..=13 => 1,
+            14.. => 0,
+            //TODO refactor so that we won't be able to reach panic
+            _ => panic!("invalid generation selected, choose between 9 and 16"),
+        }
+        .into()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -74,5 +95,16 @@ mod tests {
     #[test]
     fn blood_potency_exists() {
         let _ = BloodPotency;
+    }
+
+    #[test]
+    fn blood_potency_from_generation() {
+        let generation = 10;
+        let bp = BloodPotency::from_generation(&generation);
+
+        // for 10th generation, BP should be at least 2
+        let expected = BloodPotency(2);
+
+        assert!(bp >= expected)
     }
 }
