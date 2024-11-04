@@ -1,6 +1,12 @@
 #[derive(PartialEq, PartialOrd, Debug)]
 pub struct Hunger(u8);
 
+impl From<u8> for Hunger {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+
 impl PartialEq<u8> for Hunger {
     fn eq(&self, other: &u8) -> bool {
         &self.0 == other
