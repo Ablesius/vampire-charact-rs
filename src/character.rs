@@ -92,9 +92,23 @@ impl Character {
 
     pub fn print(&self) {
         println!("Player: {}", self.player_name);
-        println!("Character: {}", self.character_name);
         println!("Chronicle: {}", self.chronicle);
-        // TODO: print all the fields
+
+        println!("Character: {}", self.character_name);
+
+        // TODO: print all the fields? or just most important?
+        println!("Attributes: {:?}", self.attributes);
+        println!("Skills: {:?}", self.skills);
+        println!(
+            "Health & Damage: {:?}",
+            Health::from_character(
+                self,
+                Some(self.damage.superficial),
+                Some(self.damage.aggravated)
+            )
+        );
+        // TODO println!("Hunger: {:?}", self.hunger);
+        // println!("Blood Potency: {:?}", self.blood_potency);
     }
 
     //TODO do we need this rather?
