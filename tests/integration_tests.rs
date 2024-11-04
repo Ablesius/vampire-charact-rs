@@ -111,7 +111,7 @@ fn new_char_from_sample_2() {
         damage: Default::default(),
         willpower_damage: Default::default(),
         humanity: Default::default(),
-        blood_potency: Default::default(),
+        blood_potency: 1.into(),
     };
 
     let char = Character::from_file(PathBuf::from(
