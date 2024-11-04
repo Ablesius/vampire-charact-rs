@@ -145,7 +145,7 @@ fn new_char_from_sample_3() {
             value: 7,
             stains: 1,
         },
-        blood_potency: Default::default(),
+        blood_potency: 2.into(),
     };
 
     let char = Character::from_file(PathBuf::from(
