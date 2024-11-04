@@ -1,3 +1,5 @@
+use serde::{Deserialize, Serialize};
+
 #[derive(PartialEq, PartialOrd, Debug)]
 pub struct Hunger(u8);
 
@@ -47,6 +49,15 @@ impl Hunger {
     }
 }
 
+#[derive(Serialize, Deserialize, PartialEq, Debug, Default)]
+pub struct BloodPotency(u8);
+
+impl From<u8> for BloodPotency {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -58,5 +69,10 @@ mod tests {
 
         let hunger2 = Hunger(6);
         assert!(!hunger2.is_in_range())
+    }
+
+    #[test]
+    fn blood_potency_exists() {
+        let _ = BloodPotency;
     }
 }

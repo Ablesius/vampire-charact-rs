@@ -118,6 +118,7 @@ pub fn create_character() -> Result<()> {
         input_chronicle,
         Some(attributes),
         None,
+        None,
     );
 
     // we'll see whether this is actually useful to do like this at some point

@@ -134,6 +134,7 @@ mod tests {
             String::from("Cthulhu by Night"),
             Some(attributes),
             None,
+            None,
         );
 
         let health = Health::from_character(&char, None, None);
@@ -187,6 +188,7 @@ mod tests {
                 value: 6,
                 stains: 0,
             },
+            blood_potency: Default::default(),
         };
 
         let expected_humanity = Humanity {

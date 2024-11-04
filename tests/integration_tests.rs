@@ -81,6 +81,7 @@ fn new_char_from_sample_json() {
             value: 7,
             stains: 1,
         },
+        blood_potency: Default::default(),
     };
 
     let char = Character::from_file(PathBuf::from("tests/sample_character_dir/sample_char.json"))
@@ -110,6 +111,7 @@ fn new_char_from_sample_2() {
         damage: Default::default(),
         willpower_damage: Default::default(),
         humanity: Default::default(),
+        blood_potency: Default::default(),
     };
 
     let char = Character::from_file(PathBuf::from(
@@ -143,6 +145,7 @@ fn new_char_from_sample_3() {
             value: 7,
             stains: 1,
         },
+        blood_potency: Default::default(),
     };
 
     let char = Character::from_file(PathBuf::from(
@@ -209,6 +212,7 @@ fn new_char_to_file() {
         String::from("Test chronicle"),
         Some(attributes),
         Some(skills),
+        None,
     );
 
     char.to_file(PathBuf::from(

@@ -3,6 +3,7 @@ pub mod blood;
 pub mod skills;
 pub mod stats;
 
+use crate::character::blood::BloodPotency;
 use crate::character::stats::{Damage, Health, Humanity, Willpower};
 use anyhow::Result;
 pub use attributes::Attribute;
@@ -24,7 +25,9 @@ pub struct Character {
 
     pub damage: Damage,
     pub willpower_damage: Damage,
+
     pub humanity: Humanity,
+    pub blood_potency: BloodPotency,
 }
 
 impl Character {
@@ -41,6 +44,8 @@ impl Character {
         chronicle: String,
         attributes: Option<Attributes>,
         skills: Option<Skills>,
+        // TODO: add other defaults here as well
+        blood_potency: Option<BloodPotency>,
     ) -> Self {
         Self {
             player_name,
@@ -51,6 +56,8 @@ impl Character {
             damage: Damage::default(),
             willpower_damage: Damage::default(),
             humanity: Humanity::default(),
+            // TODO add hunger
+            blood_potency: blood_potency.unwrap_or_default(),
         }
     }
 
@@ -114,6 +121,7 @@ mod tests {
             String::from("Test Chronicle by Night"),
             None,
             None,
+            None,
         );
 
         assert_eq!(
@@ -127,6 +135,7 @@ mod tests {
                 damage: Damage::default(),
                 willpower_damage: Damage::default(),
                 humanity: Humanity::default(),
+                blood_potency: BloodPotency::default(),
             }
         );
     }
@@ -150,6 +159,7 @@ mod tests {
             String::from("Test Chronicle by Night"),
             Some(attributes),
             None,
+            None,
         );
 
         let expected = Character {
@@ -171,6 +181,7 @@ mod tests {
             damage: Damage::default(),
             willpower_damage: Damage::default(),
             humanity: Humanity::default(),
+            blood_potency: BloodPotency::default(),
         };
 
         assert_eq!(test_char, expected);
@@ -212,8 +223,9 @@ mod tests {
             String::from(""),
             String::from(""),
             String::from(""),
-            Some(Attributes::default()),
+            None,
             Some(skills),
+            None,
         );
 
         let expected = Character {
@@ -253,6 +265,7 @@ mod tests {
             damage: Damage::default(),
             willpower_damage: Damage::default(),
             humanity: Humanity::default(),
+            blood_potency: BloodPotency::default(),
         };
 
         assert_eq!(test_char, expected);
