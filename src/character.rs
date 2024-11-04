@@ -3,6 +3,7 @@ pub mod blood;
 pub mod skills;
 pub mod stats;
 
+use crate::character::blood::BloodPotency;
 use crate::character::stats::{Damage, Health, Humanity, Willpower};
 use anyhow::Result;
 pub use attributes::Attribute;
@@ -24,11 +25,16 @@ pub struct Character {
 
     pub damage: Damage,
     pub willpower_damage: Damage,
+
     pub humanity: Humanity,
+    pub blood_potency: BloodPotency,
 }
 
 impl Character {
-    /// Create a new Character.
+    /// Create a new Character with mostly default values.
+    ///
+    /// This function will just construct a Character instance, but it is assumed that you will use other ways of actually creating one, like using the `create` command or the GUI. (TODO: not implemented yet)
+    ///
     /// You can provide attributes and skills or leave them blank (by explicitly passing `None`);
     /// with `None`, the default values will be set (0 for attributes and (0, None) for skills;
     /// see [Skills].
@@ -41,6 +47,8 @@ impl Character {
         chronicle: String,
         attributes: Option<Attributes>,
         skills: Option<Skills>,
+        // TODO: add other defaults here as well
+        blood_potency: Option<BloodPotency>,
     ) -> Self {
         Self {
             player_name,
@@ -51,6 +59,8 @@ impl Character {
             damage: Damage::default(),
             willpower_damage: Damage::default(),
             humanity: Humanity::default(),
+            // TODO add hunger
+            blood_potency: blood_potency.unwrap_or_default(),
         }
     }
 
@@ -82,9 +92,23 @@ impl Character {
 
     pub fn print(&self) {
         println!("Player: {}", self.player_name);
-        println!("Character: {}", self.character_name);
         println!("Chronicle: {}", self.chronicle);
-        // TODO: print all the fields
+
+        println!("Character: {}", self.character_name);
+
+        // TODO: print all the fields? or just most important?
+        println!("Attributes: {:?}", self.attributes);
+        println!("Skills: {:?}", self.skills);
+        println!(
+            "Health & Damage: {:?}",
+            Health::from_character(
+                self,
+                Some(self.damage.superficial),
+                Some(self.damage.aggravated)
+            )
+        );
+        // TODO println!("Hunger: {:?}", self.hunger);
+        // println!("Blood Potency: {:?}", self.blood_potency);
     }
 
     //TODO do we need this rather?
@@ -114,6 +138,7 @@ mod tests {
             String::from("Test Chronicle by Night"),
             None,
             None,
+            None,
         );
 
         assert_eq!(
@@ -127,6 +152,7 @@ mod tests {
                 damage: Damage::default(),
                 willpower_damage: Damage::default(),
                 humanity: Humanity::default(),
+                blood_potency: BloodPotency::default(),
             }
         );
     }
@@ -150,6 +176,7 @@ mod tests {
             String::from("Test Chronicle by Night"),
             Some(attributes),
             None,
+            None,
         );
 
         let expected = Character {
@@ -171,6 +198,7 @@ mod tests {
             damage: Damage::default(),
             willpower_damage: Damage::default(),
             humanity: Humanity::default(),
+            blood_potency: BloodPotency::default(),
         };
 
         assert_eq!(test_char, expected);
@@ -212,8 +240,9 @@ mod tests {
             String::from(""),
             String::from(""),
             String::from(""),
-            Some(Attributes::default()),
+            None,
             Some(skills),
+            None,
         );
 
         let expected = Character {
@@ -253,6 +282,7 @@ mod tests {
             damage: Damage::default(),
             willpower_damage: Damage::default(),
             humanity: Humanity::default(),
+            blood_potency: BloodPotency::default(),
         };
 
         assert_eq!(test_char, expected);

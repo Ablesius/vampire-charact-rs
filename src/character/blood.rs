@@ -1,3 +1,6 @@
+use serde::{Deserialize, Serialize};
+use std::cmp::Ordering;
+
 #[derive(PartialEq, PartialOrd, Debug)]
 pub struct Hunger(u8);
 
@@ -47,6 +50,35 @@ impl Hunger {
     }
 }
 
+#[derive(Serialize, Deserialize, PartialEq, Debug, Default)]
+pub struct BloodPotency(u8);
+
+impl From<u8> for BloodPotency {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+
+impl PartialOrd for BloodPotency {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        self.0.cmp(&other.0).into()
+    }
+}
+
+impl BloodPotency {
+    //TODO refactor so that it's used
+    pub(crate) fn from_generation(generation: &u8) -> Self {
+        match generation {
+            10..=11 => 2,
+            12..=13 => 1,
+            14.. => 0,
+            //TODO refactor so that we won't be able to reach panic
+            _ => panic!("invalid generation selected, choose between 9 and 16"),
+        }
+        .into()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -58,5 +90,32 @@ mod tests {
 
         let hunger2 = Hunger(6);
         assert!(!hunger2.is_in_range())
+    }
+
+    #[test]
+    fn u8_into_blood_potency() {
+        let bp: BloodPotency = 3.into();
+        let expected = BloodPotency(3);
+
+        assert_eq!(bp, expected)
+    }
+
+    #[test]
+    fn blood_potency_from_u8() {
+        let bp = BloodPotency::from(3);
+        let expected = BloodPotency(3);
+
+        assert_eq!(bp, expected)
+    }
+
+    #[test]
+    fn blood_potency_from_generation() {
+        let generation = 10;
+        let bp = BloodPotency::from_generation(&generation);
+
+        // for 10th generation, BP should be at least 2
+        let expected = BloodPotency(2);
+
+        assert!(bp >= expected)
     }
 }

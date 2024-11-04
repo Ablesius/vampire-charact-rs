@@ -134,5 +134,6 @@
   "humanity": {
     "value": 7,
     "stains": 1
-  }
+  },
+  "blood_potency": 2
 }
