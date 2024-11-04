@@ -31,7 +31,10 @@ pub struct Character {
 }
 
 impl Character {
-    /// Create a new Character.
+    /// Create a new Character with mostly default values.
+    ///
+    /// This function will just construct a Character instance, but it is assumed that you will use other ways of actually creating one, like using the `create` command or the GUI. (TODO: not implemented yet)
+    ///
     /// You can provide attributes and skills or leave them blank (by explicitly passing `None`);
     /// with `None`, the default values will be set (0 for attributes and (0, None) for skills;
     /// see [Skills].
