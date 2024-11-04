@@ -93,8 +93,19 @@ mod tests {
     }
 
     #[test]
-    fn blood_potency_exists() {
-        let _ = BloodPotency;
+    fn u8_into_blood_potency() {
+        let bp: BloodPotency = 3.into();
+        let expected = BloodPotency(3);
+
+        assert_eq!(bp, expected)
+    }
+
+    #[test]
+    fn blood_potency_from_u8() {
+        let bp = BloodPotency::from(3);
+        let expected = BloodPotency(3);
+
+        assert_eq!(bp, expected)
     }
 
     #[test]
