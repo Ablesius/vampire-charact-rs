@@ -54,8 +54,7 @@ pub fn list_characters(path: PathBuf) -> Result<(), Box<dyn Error>> {
 ///
 /// The name of the player, the character, and the chronicle.
 pub fn print_character(path: PathBuf) -> Result<(), Box<dyn Error>> {
-    let character = Character::from_file(path)?;
-    character.print();
+    Character::from_file(path)?.print();
     Ok(())
 }
 
