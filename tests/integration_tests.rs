@@ -81,7 +81,7 @@ fn new_char_from_sample_json() {
             value: 7,
             stains: 1,
         },
-        blood_potency: Default::default(),
+        blood_potency: 1.into(),
     };
 
     let char = Character::from_file(PathBuf::from("tests/sample_character_dir/sample_char.json"))
