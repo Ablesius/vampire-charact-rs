@@ -206,13 +206,15 @@ fn new_char_to_file() {
         technology: (0, None),
     };
 
+    let bp = 2;
+
     let char = Character::new(
         String::from("Test player"),
         String::from("Test character"),
         String::from("Test chronicle"),
         Some(attributes),
         Some(skills),
-        None,
+        Some(bp.into()),
     );
 
     char.to_file(PathBuf::from(
