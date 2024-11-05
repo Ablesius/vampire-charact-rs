@@ -143,11 +143,6 @@ mod tests {
     }
 
     #[test]
-    fn generation_exists() {
-        let _ = Generation(1);
-    }
-
-    #[test]
     fn generation_0_turns_1() {
         let gen_0: Generation = 0.into();
         assert_eq!(gen_0, Generation(1));
