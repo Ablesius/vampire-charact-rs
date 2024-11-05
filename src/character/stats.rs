@@ -16,9 +16,9 @@ impl Health {
     }
 
     /// Create a [Health] struct from a [Character]'s values.
-    /// Health in VtM is calculated as 3 + [Attribute::Stamina],
+    /// Health in VtM is calculated as 3 + [Stamina](Attribute::Stamina),
     /// so we only need to extract Stamina from the
-    /// [Attributes] field.
+    /// [Attributes](crate::Attributes) field.
     pub fn from_character(
         character: &Character,
         superficial: Option<u8>,
