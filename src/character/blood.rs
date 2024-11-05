@@ -59,13 +59,18 @@ impl From<u8> for BloodPotency {
 }
 
 impl BloodPotency {
-    pub(crate) fn from_generation(generation: &u8) -> Self {
-        match generation {
+    /// Automatically assign [BloodPotency] based on the provided [Generation].
+    /// This is not intended as an absolute conversion table, as it is possible to buy
+    /// higher values in [BloodPotency] with XP, and it is possible to change [Generation]
+    /// e.g. through diablerie.
+    /// In order to keep things simple, any generation lower than 10 just gets their [BloodPotency] set to 3.
+    /// Adjust yourself where necessary.
+    pub(crate) fn from_generation(generation: &Generation) -> Self {
+        match generation.0 {
+            ..10 => 3,
             10..=11 => 2,
             12..=13 => 1,
             14.. => 0,
-            //TODO refactor so that we won't be able to reach panic
-            _ => panic!("invalid generation selected, choose between 9 and 16"),
         }
         .into()
     }
@@ -128,7 +133,7 @@ mod tests {
 
     #[test]
     fn blood_potency_from_generation() {
-        let generation = 10;
+        let generation: Generation = 10.into();
         let bp = BloodPotency::from_generation(&generation);
 
         // for 10th generation, BP should be at least 2
