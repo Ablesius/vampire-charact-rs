@@ -1,5 +1,4 @@
 use serde::{Deserialize, Serialize};
-use std::cmp::Ordering;
 
 #[derive(PartialEq, PartialOrd, Debug)]
 pub struct Hunger(u8);
@@ -50,18 +49,12 @@ impl Hunger {
     }
 }
 
-#[derive(Serialize, Deserialize, PartialEq, Debug, Default)]
+#[derive(Serialize, Deserialize, PartialEq, PartialOrd, Debug, Default)]
 pub struct BloodPotency(u8);
 
 impl From<u8> for BloodPotency {
     fn from(value: u8) -> Self {
         Self(value)
-    }
-}
-
-impl PartialOrd for BloodPotency {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        self.0.cmp(&other.0).into()
     }
 }
 
