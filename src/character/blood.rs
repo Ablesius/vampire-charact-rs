@@ -66,7 +66,6 @@ impl PartialOrd for BloodPotency {
 }
 
 impl BloodPotency {
-    //TODO refactor so that it's used
     pub(crate) fn from_generation(generation: &u8) -> Self {
         match generation {
             10..=11 => 2,
