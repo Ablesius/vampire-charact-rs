@@ -64,7 +64,7 @@ impl Character {
         }
     }
 
-    /// Parse a json file and return `anyhow::Result<Character>`.
+    /// Parse a json file and return [Result<Character>](anyhow::Result<Character>).
     ///
     /// # JSON format
     /// For the Option types, the JSON has to look similar to this:
