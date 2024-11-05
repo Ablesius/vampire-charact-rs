@@ -71,6 +71,26 @@ impl BloodPotency {
     }
 }
 
+#[derive(Serialize, Deserialize, PartialEq, PartialOrd, Debug)]
+pub struct Generation(u8);
+
+impl From<u8> for Generation {
+    /// Get the generation from just a number above 0.
+    ///
+    /// Theoretically it makes sense to restrict extremely low generations,
+    /// but this is then a problem of the character *creation* process.
+    /// Nothing stops us from having character sheets for methuselahs.
+    ///
+    /// The only restriction is that generation cannot be 0; in that case it will be set to 1 instead.
+    fn from(value: u8) -> Self {
+        if value == 0 {
+            eprintln!("Generation cannot be 0, setting to 1 instead!");
+            return Self(1);
+        }
+        Self(value)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -109,5 +129,10 @@ mod tests {
         let expected = BloodPotency(2);
 
         assert!(bp >= expected)
+    }
+
+    #[test]
+    fn generation_exists() {
+        let _ = Generation(1);
     }
 }
