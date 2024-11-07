@@ -3,7 +3,7 @@ pub mod blood;
 pub mod skills;
 pub mod stats;
 
-use crate::character::blood::BloodPotency;
+use crate::character::blood::{BloodPotency, Generation};
 use crate::character::stats::{Damage, Health, Humanity, Willpower};
 use anyhow::Result;
 pub use attributes::Attribute;
@@ -28,6 +28,7 @@ pub struct Character {
 
     pub humanity: Humanity,
     pub blood_potency: BloodPotency,
+    pub generation: Generation,
 }
 
 impl Character {
@@ -49,6 +50,7 @@ impl Character {
         skills: Option<Skills>,
         // TODO: add other defaults here as well
         blood_potency: Option<BloodPotency>,
+        generation: Generation,
     ) -> Self {
         Self {
             player_name,
@@ -61,10 +63,11 @@ impl Character {
             humanity: Humanity::default(),
             // TODO add hunger
             blood_potency: blood_potency.unwrap_or_default(),
+            generation,
         }
     }
 
-    /// Parse a json file and return `anyhow::Result<Character>`.
+    /// Parse a json file and return [Result<Character>](anyhow::Result<Character>).
     ///
     /// # JSON format
     /// For the Option types, the JSON has to look similar to this:
@@ -139,6 +142,7 @@ mod tests {
             None,
             None,
             None,
+            13.into(),
         );
 
         assert_eq!(
@@ -153,6 +157,7 @@ mod tests {
                 willpower_damage: Damage::default(),
                 humanity: Humanity::default(),
                 blood_potency: BloodPotency::default(),
+                generation: 13.into(),
             }
         );
     }
@@ -177,6 +182,7 @@ mod tests {
             Some(attributes),
             None,
             None,
+            10.into(),
         );
 
         let expected = Character {
@@ -199,6 +205,7 @@ mod tests {
             willpower_damage: Damage::default(),
             humanity: Humanity::default(),
             blood_potency: BloodPotency::default(),
+            generation: 10.into(),
         };
 
         assert_eq!(test_char, expected);
@@ -243,6 +250,7 @@ mod tests {
             None,
             Some(skills),
             None,
+            12.into(),
         );
 
         let expected = Character {
@@ -283,6 +291,7 @@ mod tests {
             willpower_damage: Damage::default(),
             humanity: Humanity::default(),
             blood_potency: BloodPotency::default(),
+            generation: 12.into(),
         };
 
         assert_eq!(test_char, expected);

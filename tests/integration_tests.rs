@@ -1,5 +1,6 @@
 use std::path::PathBuf;
 use vampire_charact_rs::character::attributes::Attributes;
+use vampire_charact_rs::character::blood::Generation;
 use vampire_charact_rs::character::skills::Skills;
 use vampire_charact_rs::character::stats::{Damage, Humanity};
 use vampire_charact_rs::character::{Attribute, Character};
@@ -82,6 +83,7 @@ fn new_char_from_sample_json() {
             stains: 1,
         },
         blood_potency: 1.into(),
+        generation: 13.into(),
     };
 
     let char = Character::from_file(PathBuf::from("tests/sample_character_dir/sample_char.json"))
@@ -112,6 +114,7 @@ fn new_char_from_sample_2() {
         willpower_damage: Default::default(),
         humanity: Default::default(),
         blood_potency: 1.into(),
+        generation: 12.into(),
     };
 
     let char = Character::from_file(PathBuf::from(
@@ -146,6 +149,7 @@ fn new_char_from_sample_3() {
             stains: 1,
         },
         blood_potency: 2.into(),
+        generation: 14.into(),
     };
 
     let char = Character::from_file(PathBuf::from(
@@ -207,6 +211,7 @@ fn new_char_to_file() {
     };
 
     let bp = 2;
+    let generation: Generation = 13.into();
 
     let char = Character::new(
         String::from("Test player"),
@@ -215,6 +220,7 @@ fn new_char_to_file() {
         Some(attributes),
         Some(skills),
         Some(bp.into()),
+        generation,
     );
 
     char.to_file(PathBuf::from(

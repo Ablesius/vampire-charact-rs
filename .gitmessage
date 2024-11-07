@@ -22,6 +22,9 @@
 # The following is the list of supported scopes (subject to change):
 # core
 # character
+# blood
+# stats
+# attributes
 # JSON
 # list
 # create

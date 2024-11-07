@@ -142,7 +142,7 @@ pub fn create_character() -> Result<()> {
         .parse()
         .expect("couldn't read generation, did you input a number or text?");
 
-    let blood_potency = BloodPotency::from_generation(&generation);
+    let blood_potency = BloodPotency::from_generation(&generation.into());
 
     let character = Character::new(
         input_player_name,
@@ -151,6 +151,7 @@ pub fn create_character() -> Result<()> {
         Some(attributes),
         None,
         Some(blood_potency),
+        generation.into(),
     );
 
     // we'll see whether this is actually useful to do like this at some point

@@ -135,5 +135,6 @@
     "value": 7,
     "stains": 0
   },
-  "blood_potency": 1
+  "blood_potency": 1,
+  "generation": 12
 }
