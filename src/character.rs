@@ -110,8 +110,10 @@ impl Character {
                 Some(self.damage.aggravated)
             )
         );
-        // TODO println!("Hunger: {:?}", self.hunger);
-        // println!("Blood Potency: {:?}", self.blood_potency);
+        // println!("Hunger: {:?}", self.hunger);
+        // TODO note: when using :? we print the Debug print, which gives `BloodPotency(1)` or similar;
+        //  we'll need to impl a Display that only prints the value or something that reads more nicely
+        println!("Blood Potency: {:?}", self.blood_potency);
     }
 
     //TODO do we need this rather?
