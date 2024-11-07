@@ -82,7 +82,7 @@ impl BloodPotency {
 /// In order to check that Generation is always > 0, use `let gen: Generation = 0.into()` and
 /// don't construct with `Generation(0)`; the latter **will** have 0 as value, not 1.
 /// TODO make Generation private, would that help avoiding the 0 case?
-#[derive(Serialize, Deserialize, PartialEq, PartialOrd, Debug)]
+#[derive(Serialize, Deserialize, PartialEq, PartialOrd, Debug, Default)]
 pub struct Generation(u8);
 
 impl From<u8> for Generation {

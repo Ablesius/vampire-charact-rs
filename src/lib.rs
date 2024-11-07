@@ -151,6 +151,7 @@ pub fn create_character() -> Result<()> {
         Some(attributes),
         None,
         Some(blood_potency),
+        generation.into(),
     );
 
     // we'll see whether this is actually useful to do like this at some point

@@ -135,6 +135,7 @@ mod tests {
             Some(attributes),
             None,
             None,
+            13.into(),
         );
 
         let health = Health::from_character(&char, None, None);
@@ -189,6 +190,7 @@ mod tests {
                 stains: 0,
             },
             blood_potency: Default::default(),
+            generation: 13.into(),
         };
 
         let expected_humanity = Humanity {
