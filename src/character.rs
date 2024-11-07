@@ -3,7 +3,7 @@ pub mod blood;
 pub mod skills;
 pub mod stats;
 
-use crate::character::blood::{BloodPotency, Generation};
+use crate::character::blood::{BloodPotency, Generation, Hunger};
 use crate::character::stats::{Damage, Health, Humanity, Willpower};
 use anyhow::Result;
 pub use attributes::Attribute;
@@ -27,8 +27,12 @@ pub struct Character {
     pub willpower_damage: Damage,
 
     pub humanity: Humanity,
+
+    // TODO make BP optional in ::new, 1 default;
     pub blood_potency: BloodPotency,
+    // TODO make Gen optional in ::new, 13 default;
     pub generation: Generation,
+    pub hunger: Hunger,
 }
 
 impl Character {
@@ -36,21 +40,22 @@ impl Character {
     ///
     /// This function will just construct a Character instance, but it is assumed that you will use other ways of actually creating one, like using the `create` command or the GUI. (TODO: not implemented yet)
     ///
-    /// You can provide attributes and skills or leave them blank (by explicitly passing `None`);
-    /// with `None`, the default values will be set (0 for attributes and (0, None) for skills;
+    /// You can provide [Attributes] and [Skills] or leave them blank (by explicitly passing [None]);
+    /// with [None], the default values will be set (0 for attributes and (0, None) for skills;
     /// see [Skills].
     ///
-    /// **Note**: We assume that a new character does not have any damage;
+    /// **Note**: We assume that a new character does not have any [Damage];
     /// that would have to be set later.
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
         player_name: String,
         character_name: String,
         chronicle: String,
         attributes: Option<Attributes>,
         skills: Option<Skills>,
-        // TODO: add other defaults here as well
+        hunger: Option<Hunger>,
         blood_potency: Option<BloodPotency>,
-        generation: Generation,
+        generation: Option<Generation>,
     ) -> Self {
         Self {
             player_name,
@@ -61,13 +66,13 @@ impl Character {
             damage: Damage::default(),
             willpower_damage: Damage::default(),
             humanity: Humanity::default(),
-            // TODO add hunger
+            hunger: hunger.unwrap_or_default(),
             blood_potency: blood_potency.unwrap_or_default(),
-            generation,
+            generation: generation.unwrap_or_default(),
         }
     }
 
-    /// Parse a json file and return [Result<Character>](anyhow::Result<Character>).
+    /// Parse a json file and return [Result<Character>].
     ///
     /// # JSON format
     /// For the Option types, the JSON has to look similar to this:
@@ -144,7 +149,8 @@ mod tests {
             None,
             None,
             None,
-            13.into(),
+            None,
+            None,
         );
 
         assert_eq!(
@@ -159,7 +165,8 @@ mod tests {
                 willpower_damage: Damage::default(),
                 humanity: Humanity::default(),
                 blood_potency: BloodPotency::default(),
-                generation: 13.into(),
+                generation: Default::default(),
+                hunger: Default::default(),
             }
         );
     }
@@ -184,7 +191,8 @@ mod tests {
             Some(attributes),
             None,
             None,
-            10.into(),
+            None,
+            None,
         );
 
         let expected = Character {
@@ -207,7 +215,8 @@ mod tests {
             willpower_damage: Damage::default(),
             humanity: Humanity::default(),
             blood_potency: BloodPotency::default(),
-            generation: 10.into(),
+            generation: Default::default(),
+            hunger: Default::default(),
         };
 
         assert_eq!(test_char, expected);
@@ -252,7 +261,8 @@ mod tests {
             None,
             Some(skills),
             None,
-            12.into(),
+            None,
+            None,
         );
 
         let expected = Character {
@@ -289,11 +299,12 @@ mod tests {
                 science: (2, None),
                 technology: (3, None),
             },
-            damage: Damage::default(),
-            willpower_damage: Damage::default(),
-            humanity: Humanity::default(),
-            blood_potency: BloodPotency::default(),
-            generation: 12.into(),
+            damage: Default::default(),
+            willpower_damage: Default::default(),
+            humanity: Default::default(),
+            hunger: Default::default(),
+            blood_potency: Default::default(),
+            generation: Default::default(),
         };
 
         assert_eq!(test_char, expected);
