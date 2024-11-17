@@ -26,5 +26,6 @@ repos:
     hooks:
       - id: cargo-test
         stages:
+          # in order for these to work, run `pre-commit install --hook-type pre-commit --hook-type pre-push --hook-type pre-merge-commit` after setting up once!
           - pre-push
           - pre-merge-commit
