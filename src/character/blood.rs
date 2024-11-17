@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(PartialEq, PartialOrd, Debug)]
+#[derive(PartialEq, PartialOrd, Debug, Default, Deserialize, Serialize)]
 pub struct Hunger(u8);
 
 impl From<u8> for Hunger {
@@ -49,8 +49,16 @@ impl Hunger {
     }
 }
 
-#[derive(Serialize, Deserialize, PartialEq, PartialOrd, Debug, Default)]
+#[derive(Serialize, Deserialize, PartialEq, PartialOrd, Debug)]
 pub struct BloodPotency(u8);
+
+impl Default for BloodPotency {
+    /// Default BloodPotency should be one, not 0, because only Thin-Blood vampires have 0
+    /// (which is possible to be and have, but it is not the default case).
+    fn default() -> Self {
+        Self(1)
+    }
+}
 
 impl From<u8> for BloodPotency {
     fn from(value: u8) -> Self {
@@ -82,8 +90,15 @@ impl BloodPotency {
 /// In order to check that Generation is always > 0, use `let gen: Generation = 0.into()` and
 /// don't construct with `Generation(0)`; the latter **will** have 0 as value, not 1.
 /// TODO make Generation private, would that help avoiding the 0 case?
-#[derive(Serialize, Deserialize, PartialEq, PartialOrd, Debug, Default)]
+#[derive(Serialize, Deserialize, PartialEq, PartialOrd, Debug)]
 pub struct Generation(u8);
+
+impl Default for Generation {
+    /// Default Generation is 13, since that makes for a good starting point with new [Characters](crate::Character).
+    fn default() -> Self {
+        13.into()
+    }
+}
 
 impl From<u8> for Generation {
     /// Get the generation from just a number above 0.

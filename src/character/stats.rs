@@ -135,7 +135,8 @@ mod tests {
             Some(attributes),
             None,
             None,
-            13.into(),
+            None,
+            None,
         );
 
         let health = Health::from_character(&char, None, None);
@@ -177,6 +178,7 @@ mod tests {
 
     #[test]
     fn humanity_6_for_ancillae() {
+        // TODO: write ancilla to file, then use from_file
         let char = Character {
             player_name: "".to_string(),
             character_name: "".to_string(),
@@ -191,6 +193,7 @@ mod tests {
             },
             blood_potency: Default::default(),
             generation: 13.into(),
+            hunger: Default::default(),
         };
 
         let expected_humanity = Humanity {

@@ -150,12 +150,14 @@ pub fn create_character() -> Result<()> {
         input_chronicle,
         Some(attributes),
         None,
+        // new characters start with Hunger 1 by default
+        Some(1.into()),
         Some(blood_potency),
-        generation.into(),
+        Some(generation.into()),
     );
 
-    // we'll see whether this is actually useful to do like this at some point
     let health = Health::from_character(&character, None, None);
+
     // TODO: this block is just for debugging purposes, remove later
     println!("{:#?}", character);
     println!("The character's health: {:#?}", health);

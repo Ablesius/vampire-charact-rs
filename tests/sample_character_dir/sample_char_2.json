@@ -135,6 +135,7 @@
     "value": 7,
     "stains": 0
   },
+  "hunger": 0,
   "blood_potency": 1,
   "generation": 12
 }
