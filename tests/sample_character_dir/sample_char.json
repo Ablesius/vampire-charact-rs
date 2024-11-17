@@ -149,8 +149,6 @@
   "rouse_reroll": 1,
   "bane_severity": 2,
   "feeding_penalty": null,
-  "clan_bane": "Aesthetic Fixation. Dice penalty to Discipline rolls, when in a less than beautiful environment.",
-  "clan_compulsion": "Obsession. Until the end of scene or losing sight of the center of your attention, you suffer a 2 dice penalty.",
   "disciplines": [
     {
       "auspex": [
