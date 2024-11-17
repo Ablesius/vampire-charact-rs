@@ -94,6 +94,7 @@ impl Character {
         let file = File::create(path)?;
         let mut writer = BufWriter::new(file);
         serde_json::to_writer(&mut writer, &self)?;
+        writer.write_all(b"\n")?;
         writer.flush()?;
         Ok(())
     }
