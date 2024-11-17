@@ -1,24 +1,26 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
-    -   id: check-added-large-files
--   repo: https://github.com/doublify/pre-commit-rust
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-added-large-files
+  - repo: https://github.com/doublify/pre-commit-rust
     rev: v1.0
     hooks:
-        -   id: fmt
-        -   id: clippy
--   repo: local
+      - id: fmt
+      - id: clippy
+  - repo: local
     hooks:
-        - id: test
-          name: cargo test
-          description: Run tests with cargo test.
-          entry: cargo test --
-          language: rust
-          types: [rust]
-          stages: [push]
-          args: []
+    # source: https://github.com/AndrejOrsula/pre-commit-cargo/blob/67040d6a664d4431d07bea87683a1f916f8a8437/.pre-commit-hooks.yaml#L37
+    - id: cargo-test
+      name: cargo test
+      description: Execute unit and integration tests of Rust code.
+      language: rust
+      stages: [pre-push]
+      files: (Cargo.(toml|lock)|\.rs$)
+      pass_filenames: false
+      entry: cargo test
+      args: [ "--workspace" ]
