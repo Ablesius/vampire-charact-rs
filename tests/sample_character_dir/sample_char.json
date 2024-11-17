@@ -141,14 +141,6 @@
   "hunger": 1,
   "blood_potency": 1,
   "generation": 13,
-  "blood_surge": 2,
-  "mend_amount": [
-    1,
-    "superficial"
-  ],
-  "rouse_reroll": 1,
-  "bane_severity": 2,
-  "feeding_penalty": null,
   "disciplines": [
     {
       "auspex": [
