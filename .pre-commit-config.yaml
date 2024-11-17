@@ -21,15 +21,10 @@ repos:
     hooks:
       - id: fmt
       - id: clippy
-  - repo: local
+  - repo: https://github.com/AndrejOrsula/pre-commit-cargo
+    rev: 0.3.0
     hooks:
-    # source: https://github.com/AndrejOrsula/pre-commit-cargo/blob/67040d6a664d4431d07bea87683a1f916f8a8437/.pre-commit-hooks.yaml#L37
-    - id: cargo-test
-      name: cargo test
-      description: Execute unit and integration tests of Rust code.
-      language: rust
-      stages: [pre-push]
-      files: (Cargo.(toml|lock)|\.rs$)
-      pass_filenames: false
-      entry: cargo test
-      args: [ "--workspace" ]
+      - id: cargo-test
+        stages:
+          - pre-push
+          - pre-merge-commit
