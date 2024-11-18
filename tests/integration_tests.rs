@@ -214,16 +214,14 @@ fn new_char_to_file() {
 
     let bp = 2;
 
-    let char = Character::new(
-        String::from("Test player"),
-        String::from("Test character"),
-        String::from("Test chronicle"),
-        Some(attributes),
-        Some(skills),
-        None,
-        Some(bp.into()),
-        None,
-    );
+    let char = Character::builder()
+        .player_name(String::from("Test player"))
+        .character_name(String::from("Test character"))
+        .chronicle(String::from("Test chronicle"))
+        .attributes(attributes)
+        .skills(skills)
+        .blood_potency(bp.into())
+        .build();
 
     char.to_file(PathBuf::from(
         "tests/integration_test_characters/test_character.json",
