@@ -8,6 +8,7 @@ use crate::character::stats::{Damage, Health, Humanity, Willpower};
 use anyhow::Result;
 pub use attributes::Attribute;
 use attributes::Attributes;
+use bon::bon;
 use serde::{Deserialize, Serialize};
 use skills::Skills;
 use std::fs::File;
@@ -35,6 +36,7 @@ pub struct Character {
     pub hunger: Hunger,
 }
 
+#[bon]
 impl Character {
     /// Create a new Character with mostly default values.
     ///
@@ -47,6 +49,7 @@ impl Character {
     /// **Note**: We assume that a new character does not have any [Damage];
     /// that would have to be set later.
     #[allow(clippy::too_many_arguments)]
+    #[builder]
     pub fn new(
         player_name: String,
         character_name: String,
@@ -143,16 +146,11 @@ mod tests {
     use super::*;
     #[test]
     fn new_character_all_default_values() {
-        let test_char = Character::new(
-            String::from("Test Player"),
-            String::from("Test Character"),
-            String::from("Test Chronicle by Night"),
-            None,
-            None,
-            None,
-            None,
-            None,
-        );
+        let test_char = Character::builder()
+            .player_name(String::from("Test Player"))
+            .character_name(String::from("Test Character"))
+            .chronicle(String::from("Test Chronicle by Night"))
+            .build();
 
         assert_eq!(
             test_char,
@@ -185,16 +183,12 @@ mod tests {
             wits: 3,
             resolve: 2,
         };
-        let test_char = Character::new(
-            String::from("Test Player"),
-            String::from("Test Character"),
-            String::from("Test Chronicle by Night"),
-            Some(attributes),
-            None,
-            None,
-            None,
-            None,
-        );
+        let test_char = Character::builder()
+            .player_name(String::from("Test Player"))
+            .character_name(String::from("Test Character"))
+            .chronicle(String::from("Test Chronicle by Night"))
+            .attributes(attributes)
+            .build();
 
         let expected = Character {
             player_name: String::from("Test Player"),
@@ -255,16 +249,12 @@ mod tests {
             technology: (3, None),
         };
 
-        let test_char = Character::new(
-            String::from(""),
-            String::from(""),
-            String::from(""),
-            None,
-            Some(skills),
-            None,
-            None,
-            None,
-        );
+        let test_char = Character::builder()
+            .player_name(String::from(""))
+            .character_name(String::from(""))
+            .chronicle(String::from(""))
+            .skills(skills)
+            .build();
 
         let expected = Character {
             player_name: String::from(""),

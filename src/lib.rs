@@ -144,17 +144,16 @@ pub fn create_character() -> Result<()> {
 
     let blood_potency = BloodPotency::from_generation(&generation.into());
 
-    let character = Character::new(
-        input_player_name,
-        input_char_name,
-        input_chronicle,
-        Some(attributes),
-        None,
+    let character = Character::builder()
+        .player_name(input_player_name)
+        .character_name(input_char_name)
+        .chronicle(input_chronicle)
+        .attributes(attributes)
         // new characters start with Hunger 1 by default
-        Some(1.into()),
-        Some(blood_potency),
-        Some(generation.into()),
-    );
+        .hunger(1.into())
+        .blood_potency(blood_potency)
+        .generation(generation.into())
+        .build();
 
     let health = Health::from_character(&character, None, None);
 

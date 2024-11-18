@@ -128,16 +128,12 @@ mod tests {
         let mut attributes = Attributes::default();
         attributes[Attribute::Stamina] = 3;
 
-        let char = Character::new(
-            String::from("Juke"),
-            String::from("Mx Anderson"),
-            String::from("Cthulhu by Night"),
-            Some(attributes),
-            None,
-            None,
-            None,
-            None,
-        );
+        let char = Character::builder()
+            .player_name(String::from("Juke"))
+            .character_name(String::from("Mx Anderson"))
+            .chronicle(String::from("Cthulhu by Night"))
+            .attributes(attributes)
+            .build();
 
         let health = Health::from_character(&char, None, None);
         // health should be Stamina + 3, so in this case 6
