@@ -8,73 +8,58 @@ use crate::character::stats::{Damage, Health, Humanity, Willpower};
 use anyhow::Result;
 pub use attributes::Attribute;
 use attributes::Attributes;
-use bon::bon;
+use bon::builder;
+use bon::Builder;
 use serde::{Deserialize, Serialize};
 use skills::Skills;
 use std::fs::File;
 use std::io::{BufReader, BufWriter, Write};
 use std::path::Path;
 
-#[derive(PartialEq, Debug, Default, Deserialize, Serialize)]
+#[derive(PartialEq, Debug, Default, Deserialize, Serialize, Builder)]
+/// Create a new Character with mostly default values.
+///
+/// There is no constructor; we're using the builder pattern instead.
+/// It is assumed that you will use other ways of actually creating a character,
+/// like using the `create` command or the GUI. (TODO: not implemented yet)
+///
+/// You can provide [Attributes] and [Skills] or leave them blank (by explicitly passing [None]);
+/// with [None], the default values will be set (0 for attributes and (0, None) for skills;
+/// see [Skills].
+///
+/// **Note**: We assume that a new character does not have any [Damage];
+/// that would have to be set later.
 pub struct Character {
     pub player_name: String,
     pub character_name: String,
     pub chronicle: String,
 
+    // TODO in the future, neither attributes nor skills should be unset, but for now we can
+    //  live with them being all zeros.
+    #[builder(default)]
     pub attributes: Attributes,
+    #[builder(default)]
     pub skills: Skills,
 
+    // Initialize it with its `Default` value
+    #[builder(skip)]
     pub damage: Damage,
+    #[builder(skip)]
     pub willpower_damage: Damage,
-
+    #[builder(skip)]
     pub humanity: Humanity,
 
     // TODO make BP optional in ::new, 1 default;
+    #[builder(default)]
     pub blood_potency: BloodPotency,
     // TODO make Gen optional in ::new, 13 default;
+    #[builder(default)]
     pub generation: Generation,
+    #[builder(default)]
     pub hunger: Hunger,
 }
 
-#[bon]
 impl Character {
-    /// Create a new Character with mostly default values.
-    ///
-    /// This function will just construct a Character instance, but it is assumed that you will use other ways of actually creating one, like using the `create` command or the GUI. (TODO: not implemented yet)
-    ///
-    /// You can provide [Attributes] and [Skills] or leave them blank (by explicitly passing [None]);
-    /// with [None], the default values will be set (0 for attributes and (0, None) for skills;
-    /// see [Skills].
-    ///
-    /// **Note**: We assume that a new character does not have any [Damage];
-    /// that would have to be set later.
-    #[allow(clippy::too_many_arguments)]
-    #[builder]
-    pub fn new(
-        player_name: String,
-        character_name: String,
-        chronicle: String,
-        attributes: Option<Attributes>,
-        skills: Option<Skills>,
-        hunger: Option<Hunger>,
-        blood_potency: Option<BloodPotency>,
-        generation: Option<Generation>,
-    ) -> Self {
-        Self {
-            player_name,
-            character_name,
-            chronicle,
-            attributes: attributes.unwrap_or_default(),
-            skills: skills.unwrap_or_default(),
-            damage: Damage::default(),
-            willpower_damage: Damage::default(),
-            humanity: Humanity::default(),
-            hunger: hunger.unwrap_or_default(),
-            blood_potency: blood_potency.unwrap_or_default(),
-            generation: generation.unwrap_or_default(),
-        }
-    }
-
     /// Parse a json file and return [Result<Character>].
     ///
     /// # JSON format
